@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>VIBE CODING LAB | 고등학생 바이브코딩 프롬프트 가이드</title>
+  <meta name="description" content="고등학생을 위한 구글 제미나이 캔버스 바이브코딩 실습 프롬프트 309개. 버튼 한 번으로 프롬프트를 복사해 좋아하는 웹서비스·게임을 만들고 진로를 탐색해 보세요." />
+  <meta name="theme-color" content="#07060f" />
+  <meta property="og:title" content="VIBE CODING LAB · 고등학생 바이브코딩 프롬프트 가이드" />
+  <meta property="og:description" content="309개 실습 프롬프트를 버튼 한 번으로 복사! 제미나이 캔버스로 나만의 웹앱·게임 만들기" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" />
+
+  <!-- 본문 글꼴: Pretendard (인터넷이 막혀 있으면 기본 글꼴로 자동 대체) -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="css/style.css?v=20261124-1" />
+</head>
+<body>
+  <a class="skip-link" href="#missions">미션 고르기로 바로 가기</a>
+  <div class="bg" aria-hidden="true"><i class="bg__glow bg__glow--a"></i><i class="bg__glow bg__glow--b"></i><i class="bg__grid"></i></div>
+
+  <!-- ===== 상단 HUD ===== -->
+  <header class="hud" id="hud">
+    <div class="hud__row wrap">
+      <a class="logo" href="#home" aria-label="맨 위로">
+        <span class="logo__mark" aria-hidden="true">⚡</span>
+        <span class="logo__text">VIBE<b>LAB</b></span>
+      </a>
+
+      <div class="xp" aria-live="polite">
+        <span class="xp__lv" id="xpLevel">LV.1</span>
+        <div class="xp__body">
+          <span class="xp__name" id="xpName">루키 프롬프터</span>
+          <div class="xp__bar"><span id="xpFill"></span></div>
+        </div>
+        <span class="xp__num"><b id="xpNum">0</b>XP</span>
+      </div>
+
+      <button type="button" class="sound-btn" id="soundBtn" aria-pressed="true" aria-label="효과음 끄기">
+        <span class="sound-btn__ico" aria-hidden="true">🔊</span><span class="sound-btn__txt">SOUND ON</span>
+      </button>
+    </div>
+
+    <nav class="nav wrap" aria-label="단계 이동">
+      <a href="#howto" data-nav="howto"><span>00</span>실습 준비</a>
+      <a href="#blueprint" data-nav="blueprint"><span>01</span>프롬프트 설계도</a>
+      <a href="#missions" data-nav="missions"><span>02</span>미션 309</a>
+      <a href="#bugfix" data-nav="bugfix"><span>03</span>버그 픽스</a>
+      <a href="#builder" data-nav="builder"><span>04</span>나만의 프롬프트</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero wrap" id="home">
+      <div class="hero__text reveal">
+        <p class="eyebrow"><span class="dot"></span>GEMINI CANVAS · VIBE CODING LAB</p>
+        <h1 class="hero__title">
+          <span>말로 기획하고</span>
+          <span class="grad">AI로 완성하는</span>
+          <span>나만의 웹앱</span>
+        </h1>
+        <p class="hero__desc">
+          코드는 AI가 쓰고, <b>기획과 아이디어는 내가 한다.</b><br />
+          미션을 고르고 <b class="lime">프롬프트 한번에 복사</b> 버튼을 누르면 끝.
+          좋아하는 웹서비스·게임을 만들면서 <b>내 진로</b>까지 탐색해 보자.
+        </p>
+        <div class="hero__btns">
+          <a class="btn btn--primary" href="#missions">▶ 미션 고르기</a>
+          <a class="btn btn--ghost" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">✨ 제미나이 열기 ↗</a>
+        </div>
+        <dl class="stats">
+          <div><dt>실습 미션</dt><dd><b data-count="309">309</b></dd></div>
+          <div><dt>진로 분야</dt><dd><b data-count="24">24</b></dd></div>
+          <div><dt>패션 전공 특화</dt><dd><b data-count="60">60</b></dd></div>
+          <div><dt>추가 미션</dt><dd><b data-count="316">316</b></dd></div>
+        </dl>
+      </div>
+
+      <!-- 오늘의 퀘스트 -->
+      <aside class="questboard reveal" aria-label="오늘의 퀘스트">
+        <div class="questboard__head">
+          <span class="pix">DAILY QUEST</span>
+          <span class="questboard__count"><b id="questDone">0</b> / 4</span>
+        </div>
+        <ol class="questlist">
+          <li data-quest="q1"><span class="chk" aria-hidden="true"></span><div><b>메인 미션</b> 프롬프트로 앱 1개 완성하기</div></li>
+          <li data-quest="q2"><span class="chk" aria-hidden="true"></span><div><b>추가 미션</b>으로 2번 업그레이드 <small id="q2count">(0/2)</small></div></li>
+          <li data-quest="q3"><span class="chk" aria-hidden="true"></span><div><b>나만의 프롬프트</b> 직접 설계하기</div></li>
+          <li data-quest="q4"><button type="button" class="chk chk-btn" id="q4btn" aria-pressed="false" aria-label="1분 발표 완료 표시"></button><div><b>1분 발표</b> 내 진로와 이 앱의 연결 <small>(직접 체크)</small></div></li>
+        </ol>
+        <p class="questboard__tip">프롬프트를 복사하면 XP가 쌓이고 퀘스트가 자동으로 체크됩니다.</p>
+      </aside>
+    </section>
+
+    <!-- ===== 전광판 ===== -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span>◆ 코드는 AI가, 기획은 내가</span><span>◆ 고칠 점은 한 번에 하나씩</span><span>◆ 개인정보·실제 브랜드 로고 사용 금지</span><span>◆ 막히면 버그 픽스 프롬프트</span><span>◆ 완성 후 1분 진로 발표</span>
+        <span>◆ 코드는 AI가, 기획은 내가</span><span>◆ 고칠 점은 한 번에 하나씩</span><span>◆ 개인정보·실제 브랜드 로고 사용 금지</span><span>◆ 막히면 버그 픽스 프롬프트</span><span>◆ 완성 후 1분 진로 발표</span>
+      </div>
+    </div>
+
+    <!-- ===== 00 실습 준비 ===== -->
+    <section class="section wrap" id="howto">
+      <header class="section__head reveal">
+        <p class="stage">STAGE 00 · TUTORIAL</p>
+        <h2>제미나이 캔버스 실습 방법</h2>
+        <p>7단계만 기억하면 누구나 앱을 만들 수 있어요.</p>
+      </header>
+
+      <ol class="steps">
+        <li class="step reveal"><span class="step__num">01</span><h3>구글 제미나이 접속</h3><p><a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">gemini.google.com</a>에 접속해 구글 계정으로 로그인합니다.</p></li>
+        <li class="step reveal"><span class="step__num">02</span><h3>캔버스(Canvas) 켜기</h3><p>입력창 아래 <b>도구</b> 메뉴에서 <b>Canvas(캔버스)</b>를 선택합니다. 메뉴 위치와 이름은 업데이트에 따라 조금 다를 수 있어요.</p></li>
+        <li class="step reveal"><span class="step__num">03</span><h3>프롬프트 붙여넣기</h3><p>미션을 고르고 <b class="lime">프롬프트 한번에 복사</b>를 누른 뒤, 입력창에 <kbd>Ctrl</kbd>+<kbd>V</kbd>로 붙여넣고 전송합니다.</p></li>
+        <li class="step reveal"><span class="step__num">04</span><h3>미리보기 확인</h3><p>오른쪽 캔버스에 코드와 결과가 만들어집니다. <b>미리보기</b>에서 버튼을 하나씩 눌러 동작을 확인해요.</p></li>
+        <li class="step reveal"><span class="step__num">05</span><h3>한 번에 하나씩 고치기</h3><p>고칠 점은 한 번에 하나씩 요청합니다. 막히면 <a href="#bugfix">버그 픽스 프롬프트</a>를 그대로 붙여넣어요.</p></li>
+        <li class="step reveal"><span class="step__num">06</span><h3>추가 미션 도전</h3><p>기본 기능이 완성되면 미션 아래의 <b>추가 미션</b>을 같은 대화창에 이어서 요청해 기능을 늘립니다.</p></li>
+        <li class="step step--wide reveal"><span class="step__num">07</span><h3>공유 · 발표</h3><p>캔버스의 공유 기능으로 결과물 링크를 만들고, <b>“내 진로와 이 앱이 어떻게 연결되는지”</b> 1분 발표를 합니다.</p></li>
+      </ol>
+
+      <div class="duo">
+        <div class="rules reveal">
+          <h3>🛡️ 수업 전 꼭 지킬 것</h3>
+          <ul>
+            <li>실명, 연락처, 학교 주소 같은 <b>개인정보는 앱에 넣지 않습니다.</b></li>
+            <li>실제 브랜드 로고·이름, 연예인·모델 사진, 유명 캐릭터 대신 <b>직접 만든 오리지널</b>로 표현합니다.</li>
+            <li>퍼스널컬러, 건강, 환경 수치처럼 정확도가 중요한 결과에는 <b>‘참고용’ 문구</b>를 넣습니다.</li>
+            <li>같은 프롬프트라도 AI 결과는 매번 조금씩 달라요. 마음에 들지 않으면 <b>“다시 만들어줘”</b>라고 요청해도 됩니다.</li>
+          </ul>
+        </div>
+
+        <div class="levels reveal">
+          <h3>🎚️ 난이도와 수업 시간</h3>
+          <div class="level level--1"><span class="level__badge">★☆☆ 쉬움</span><div><b>프롬프트 1번에 거의 완성</b><small>첫 실습, 1차시 안에 완성 + 추가 미션 1개</small></div></div>
+          <div class="level level--2"><span class="level__badge">★★☆ 보통</span><div><b>기본 완성 후 1~2번 수정 필요</b><small>주 실습, 추가 미션 1~2개</small></div></div>
+          <div class="level level--3"><span class="level__badge">★★★ 도전</span><div><b>기능이 많아 여러 번 수정 필요</b><small>2~3차시 또는 실력 있는 학생 심화 과제</small></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 01 프롬프트 설계도 ===== -->
+    <section class="section wrap" id="blueprint">
+      <header class="section__head reveal">
+        <p class="stage">STAGE 01 · BLUEPRINT</p>
+        <h2>잘 되는 프롬프트의 7개 블록</h2>
+        <p>모든 미션 프롬프트는 캔버스에서 한 번에 작동하도록 같은 구조로 만들어졌어요. <b>나만의 프롬프트를 쓸 때도 이 틀을 그대로 쓰면 됩니다.</b></p>
+      </header>
+
+      <div class="blocks">
+        <div class="block reveal"><span class="block__no">01</span><code>역할 지정</code><b>‘친절한 웹 개발자’로 역할 부여</b><small>설명과 코드 품질이 안정됨</small></div>
+        <div class="block reveal"><span class="block__no">02</span><code>[만들 것]</code><b>무엇을 만들지 한 문장으로</b><small>AI가 목표를 헷갈리지 않음</small></div>
+        <div class="block reveal"><span class="block__no">03</span><code>[사용 대상]</code><b>누가 쓰는 앱인지</b><small>말투·난이도·디자인이 맞춰짐</small></div>
+        <div class="block reveal"><span class="block__no">04</span><code>[핵심 기능]</code><b>번호를 매긴 3~6개 기능</b><small>빠지는 기능 없이 완성됨</small></div>
+        <div class="block reveal"><span class="block__no">05</span><code>[화면 디자인]</code><b>무드, 제목·사용법, 한국어, 반응형</b><small>스마트폰에서도 보기 좋게 만들어짐</small></div>
+        <div class="block reveal"><span class="block__no">06</span><code>[기술 조건]</code><b>HTML 파일 하나, 외부 이미지·API 금지, 예시 데이터, 오류 안내, 저장 안전장치</b><small>캔버스 미리보기에서 바로 실행됨</small></div>
+        <div class="block block--wide reveal"><span class="block__no">07</span><code>[완성 전 점검]</code><b>스스로 버튼·오류 점검 후 사용법 3줄 요약</b><small>고장 난 코드가 줄어듦</small></div>
+      </div>
+
+      <div class="verified reveal">
+        <span class="verified__ico" aria-hidden="true">✔</span>
+        <p><b>검증된 프롬프트</b> 기능 유형이 서로 다른 대표 프롬프트 8개를 실제로 구현해 노트북·스마트폰(360px)·저장 기능이 막힌 환경에서 테스트했고, 그 결과를 모든 프롬프트에 반영했습니다. 수업 직전에는 오늘 쓸 주제 2~3개를 미리 실행해 보는 것을 권장해요.</p>
+      </div>
+    </section>
+
+    <!-- ===== 02 미션 ===== -->
+    <section class="section wrap" id="missions">
+      <header class="section__head reveal">
+        <p class="stage">STAGE 02 · MISSION SELECT</p>
+        <h2>미션 고르기 <span class="muted">309</span></h2>
+        <p>분야를 고르고 카드를 누르면 프롬프트 전체와 <b>추가 미션</b>이 열려요. 카드의 <b class="lime">⚡ 바로 복사</b>로 한 번에 복사할 수도 있어요.</p>
+      </header>
+
+      <div class="groups reveal" role="tablist" aria-label="분야 그룹" id="groupTabs"></div>
+      <div class="subs" id="subChips" role="group" aria-label="세부 분야"></div>
+
+      <div class="toolbar reveal">
+        <label class="search">
+          <span class="search__ico" aria-hidden="true">⌕</span>
+          <input type="search" id="searchInput" placeholder="미션 번호나 키워드 검색 (예: 17, 퀴즈, 타이머)" autocomplete="off" enterkeyhint="search" />
+        </label>
+        <div class="seg" role="group" aria-label="난이도">
+          <button type="button" class="seg__btn is-on" data-lv="0">전체</button>
+          <button type="button" class="seg__btn" data-lv="1">★ 쉬움</button>
+          <button type="button" class="seg__btn" data-lv="2">★★ 보통</button>
+          <button type="button" class="seg__btn" data-lv="3">★★★ 도전</button>
+        </div>
+        <div class="seg" role="group" aria-label="종류">
+          <button type="button" class="seg__btn is-on" data-type="">전체</button>
+          <button type="button" class="seg__btn" data-type="웹앱">🧩 웹앱</button>
+          <button type="button" class="seg__btn" data-type="게임">🎮 게임</button>
+        </div>
+        <button type="button" class="btn btn--gold" id="randomBtn">🎲 랜덤 미션 뽑기</button>
+      </div>
+
+      <p class="resultbar" aria-live="polite"><span id="resultLabel">전체 미션</span> · <b id="resultCount">309</b>개</p>
+      <div class="grid" id="missionGrid"></div>
+      <p class="empty" id="emptyMsg" hidden>조건에 맞는 미션이 없어요. 검색어나 필터를 바꿔 보세요.</p>
+    </section>
+
+    <!-- ===== 03 버그 픽스 ===== -->
+    <section class="section wrap" id="bugfix">
+      <header class="section__head reveal">
+        <p class="stage">STAGE 03 · BUG FIX</p>
+        <h2>막힐 때 쓰는 문제 해결 프롬프트</h2>
+        <p>코드를 직접 고치지 말고, <b>무엇이 안 되는지 말로 설명</b>하는 것이 바이브코딩 개발자의 방법이에요. <span class="fillhint">노란 괄호</span> 안은 내 상황에 맞게 바꿔 쓰세요.</p>
+      </header>
+      <div class="bugs" id="bugList"></div>
+    </section>
+
+    <!-- ===== 04 나만의 프롬프트 ===== -->
+    <section class="section wrap" id="builder">
+      <header class="section__head reveal">
+        <p class="stage">STAGE 04 · FINAL BOSS</p>
+        <h2>나만의 프롬프트 설계하기</h2>
+        <p>7개 블록 구조로 빈칸만 채우면 프롬프트가 자동으로 완성돼요. 아이디어가 막히면 <b>예시 불러오기</b>를 눌러 보세요.</p>
+      </header>
+
+      <div class="builder reveal">
+        <form class="builder__form" id="builderForm" autocomplete="off" onsubmit="return false;">
+          <div class="idea-chips" role="group" aria-label="예시 불러오기">
+            <span>💡 예시 불러오기</span>
+            <button type="button" class="chip chip--sm" data-idea="0">스트릿 브랜드 런칭</button>
+            <button type="button" class="chip chip--sm" data-idea="1">수행평가 생존 게임</button>
+            <button type="button" class="chip chip--sm" data-idea="2">급식 월드컵</button>
+            <button type="button" class="chip chip--sm" data-idea="3">진로 탐색 RPG</button>
+          </div>
+
+          <div class="field-row">
+            <label class="field">
+              <span>앱 또는 게임 이름</span>
+              <input type="text" id="fName" maxlength="40" placeholder="예: 오늘의 OOTD 룰렛" />
+            </label>
+            <fieldset class="field field--type">
+              <legend>종류</legend>
+              <label><input type="radio" name="fType" value="웹앱" checked /> <span>🧩 웹앱</span></label>
+              <label><input type="radio" name="fType" value="게임" /> <span>🎮 게임</span></label>
+            </fieldset>
+          </div>
+          <label class="field">
+            <span>[만들 것] 한 문장으로</span>
+            <input type="text" id="fWhat" maxlength="120" placeholder="예: 상의·하의·신발을 무작위로 뽑아 오늘의 코디를 정해주는 앱" />
+          </label>
+          <label class="field">
+            <span>[사용 대상]</span>
+            <input type="text" id="fWho" maxlength="80" placeholder="예: 아침마다 옷 고르기 힘든 고등학생" />
+          </label>
+          <label class="field">
+            <span>[핵심 기능] 한 줄에 하나씩 (3~6개)</span>
+            <textarea id="fFeat" rows="4" maxlength="600" placeholder="예:&#10;룰렛 버튼을 누르면 상의·하의·신발이 슬롯처럼 돌아가며 뽑힘&#10;마음에 드는 칸은 자물쇠로 고정&#10;오늘의 코디를 카드로 저장"></textarea>
+          </label>
+          <label class="field">
+            <span>[화면 디자인] 분위기</span>
+            <input type="text" id="fMood" maxlength="100" placeholder="예: 블랙&골드 하이엔드 매거진 무드" />
+          </label>
+          <button type="button" class="btn-text" id="builderReset">↺ 빈칸 모두 지우기</button>
+        </form>
+
+        <div class="builder__out">
+          <div class="term">
+            <div class="term__bar"><i></i><i></i><i></i><span>my_prompt.txt</span></div>
+            <pre class="term__body term__body--tall" id="builderPrompt" tabindex="0"></pre>
+          </div>
+          <div class="copy-row">
+            <button type="button" class="copy-btn" data-copy="builderPrompt" data-key="my">
+              <span class="copy-btn__ico" aria-hidden="true">▶</span>
+              <span class="copy-btn__lbl">프롬프트 한번에 복사</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p class="footer__big">MISSION COMPLETE? 🏆 오늘 만든 앱을 공유하고, 내 진로와 연결해 1분 발표를 해 보세요.</p>
+      <p>AI콘텐츠마케팅연구소 유쌤클래스 · 친절한유성쌤 김유성</p>
+      <p class="footer__small">AI가 만든 정보나 결과는 틀릴 수 있어요. 중요한 내용은 꼭 한 번 더 확인하는 습관을 가져요.</p>
+    </div>
+  </footer>
+
+  <!-- 미션 상세 창 -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal__dim" data-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+      <div class="modal__top">
+        <span class="pix" id="modalNo">MISSION 001</span>
+        <button type="button" class="modal__x" data-close aria-label="닫기">✕</button>
+      </div>
+      <div class="modal__scroll" id="modalScroll">
+        <div class="modal__head">
+          <div class="modal__icon" id="modalIcon" aria-hidden="true"></div>
+          <div>
+            <h3 class="modal__title" id="modalTitle"></h3>
+            <div class="tags" id="modalTags"></div>
+          </div>
+        </div>
+        <p class="modal__what" id="modalWhat"></p>
+        <div class="term">
+          <div class="term__bar"><i></i><i></i><i></i><span id="modalFile">mission.txt</span></div>
+          <pre class="term__body term__body--modal" id="modalPrompt" tabindex="0"></pre>
+        </div>
+        <div class="modal__missions">
+          <h4>🔼 추가 미션 <small>완성 후 같은 대화창에 이어서 요청</small></h4>
+          <ol id="modalMissions"></ol>
+        </div>
+        <div class="modal__nav">
+          <button type="button" class="btn btn--ghost btn--sm" id="modalPrev">◀ 이전 미션</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="modalNext">다음 미션 ▶</button>
+        </div>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="copy-btn" id="modalCopy" data-copy="modalPrompt" data-key="">
+          <span class="copy-btn__ico" aria-hidden="true">▶</span>
+          <span class="copy-btn__lbl">프롬프트 한번에 복사</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 맨위 버튼 -->
+  <button type="button" class="totop" id="toTop" aria-label="맨 위로 이동">
+    <span aria-hidden="true">▲</span>맨위
+  </button>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/data.js?v=20261124-1"></script>
+  <script src="js/main.js?v=20261124-1"></script>
+</body>
+</html>
