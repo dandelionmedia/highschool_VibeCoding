@@ -21,7 +21,7 @@
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
   var ROLE = "너는 고등학생과 함께 작업하는 친절한 웹 개발자야.";
-  var BUG_FILLS = ["(원하는 무드: 예) 고급스러운 블랙&amp;골드)", "(버튼 이름)", "(추가할 기능)"];
+  var BUG_FILLS = ["(원하는 무드: 예) 고급스러운 블랙&amp;골드)", "(버튼 이름)", "(추가할 기능)", "(예: 블랙&amp;골드 하이엔드)"];
 
   // [만들 것] 같은 블록 제목은 하늘색, [여기에 …] 빈칸은 노란색으로 표시
   function highlight(text) {
@@ -761,6 +761,34 @@
     ].filter(function (x) { return x !== null; }).join("\n");
   }
 
+  // v2 업그레이드: 역할 · 고급 디자인 · 버그 방지 · 테스트 점검 블록 붙이기
+  function upgradePrompt(p, isGame, is3d) {
+    var B = DATA.blocks;
+    if (!B) return p;
+    p = p.replace(/^너는 고등학생과 함께 작업하는 친절한 (3D )?웹 개발자야\./, is3d ? B.role3d : B.role2d);
+    var tk = "[기술 조건 - 꼭 지켜줘]";
+    var i = p.indexOf(tk);
+    if (i > -1) p = p.slice(0, i) + (is3d ? B.design3d : B.design2d) + "\n\n" + p.slice(i);
+    var j = p.indexOf("[완성 전 스스로 점검]");
+    var body = j > -1 ? p.slice(0, j).replace(/\s+$/, "") : p;
+    var bug = [B.bugBase];
+    if (isGame) bug.push(B.bugGame);
+    if (is3d) bug.push(B.bugThree);
+    var items = [
+      "처음 열었을 때 콘솔 오류 없이 예시 데이터가 바로 화면에 보이는지",
+      "모든 버튼을 하나씩, 그리고 빠르게 두 번 연속으로 눌러도 정상 동작하는지",
+      "빈 값·잘못된 값을 넣었을 때 멈추지 않고 화면 안 안내가 나오는지"
+    ];
+    if (isGame) items.push("게임을 끝까지 하고 '다시하기'를 3번 반복해도 속도·점수·타이머가 처음과 똑같이 정상인지");
+    if (is3d) items.push("3D 물체가 처음부터 화면 가운데에 크게 보이고(검은 화면 금지) 회전·확대가 마우스와 터치에서 모두 되는지");
+    items.push("가로 360px 스마트폰 화면에서 글자·버튼이 넘치거나 겹치지 않는지");
+    return body + "\n\n" + bug.join("\n") + "\n\n" +
+      "[완성 전 스스로 점검 - 테스트하고 고친 뒤 보여줘]\n" +
+      "코드를 보여주기 전에 아래 항목을 하나씩 직접 실행해 보듯 점검하고, 문제가 있으면 모두 고친 완성본만 보여줘.\n" +
+      items.map(function (x, k) { return (k + 1) + ". " + x; }).join("\n") +
+      "\n마지막에 사용 방법을 3줄로 요약하고, 다음에 추가하면 좋을 기능 2가지를 제안해줘.";
+  }
+
   function initBuilder() {
     var out = document.getElementById("builderPrompt");
     if (!out) return;
@@ -776,10 +804,11 @@
     var btn = $('.copy-btn[data-copy="builderPrompt"]');
     function typeVal() { var r = radios.filter(function (x) { return x.checked; })[0]; return r ? r.value : "웹앱"; }
     function render() {
-      out.innerHTML = highlight(buildPrompt({
+      var _v = {
         name: f.name.value, what: f.what.value, who: f.who.value, feat: f.feat.value, mood: f.mood.value, type: typeVal(),
         is3d: chk3d && chk3d.checked
-      }));
+      };
+      out.innerHTML = highlight(upgradePrompt(buildPrompt(_v), _v.type === "게임", !!_v.is3d));
       if (btn) setCopied(btn, false);
     }
     Object.keys(f).forEach(function (k) { f[k].addEventListener("input", render); });

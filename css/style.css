@@ -176,7 +176,7 @@ kbd {
 }
 .questlist li small { color: var(--muted); font-size: 14px; }
 .chk {
-  flex: none; width: 30px; height: 30px; border-radius: 9px; border: 2px solid var(--line2); background: transparent; display: grid; place-items: center; padding: 0;
+  flex: none; width: 36px; height: 36px; border-radius: 9px; border: 2px solid var(--line2); background: transparent; display: grid; place-items: center; padding: 0;
 }
 .chk::after { content: ""; width: 12px; height: 7px; border-left: 3px solid #05020f; border-bottom: 3px solid #05020f; transform: rotate(-45deg) translate(1px, -1px); opacity: 0; }
 .questlist li.is-done { border-color: rgba(72, 245, 154, .5); background: rgba(72, 245, 154, .08); }
@@ -536,7 +536,22 @@ html.no-io .reveal { opacity: 1; transform: none; }
 .labpromo .studio__chips { margin: 0; }
 @media (max-width: 860px) { .labpromo { grid-template-columns: 1fr; } .labpromo .btn { width: 100%; } }
 
+.v2badge { display: inline-block; vertical-align: middle; font-family: var(--pix); font-size: 14px; padding: 6px 12px; border-radius: 99px; background: var(--grad); color: #05020f; letter-spacing: .04em; }
+.block--v2 { border-color: rgba(72,245,154,.4); background: linear-gradient(135deg, rgba(72,245,154,.1), rgba(141,107,255,.06)); }
+.block--v2 .block__no { color: rgba(72,245,154,.25); }
+.block--v2 code { color: var(--lime); }
+
 /* ---------- 반응형 ---------- */
+/* 노치·홈 바가 있는 기기 안전 영역 */
+body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+.totop { bottom: calc(28px + env(safe-area-inset-bottom)); }
+.toast { bottom: calc(32px + env(safe-area-inset-bottom)); }
+/* 가로 스크롤 메뉴: 오른쪽이 이어진다는 힌트 */
+.nav { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 40px), transparent); padding-right: 32px; scroll-snap-type: x proximity; }
+.nav a { scroll-snap-align: center; }
+@media (min-width: 1100px) { .nav { -webkit-mask-image: none; mask-image: none; } }
+/* 큰 모니터: 글자 폭이 너무 넓어지지 않게 */
+@media (min-width: 1600px) { .wrap { width: min(1360px, 100% - 80px); } .grid { grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); } }
 @media (min-width: 1024px) {
   .studio { grid-template-columns: 1.4fr 1fr; }
   .hero { grid-template-columns: 1.25fr 0.9fr; gap: 56px; }
@@ -604,4 +619,60 @@ html.no-io .reveal { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
+}
+
+/* ---------- 작은 스마트폰 (≤ 380px) ---------- */
+@media (max-width: 380px) {
+  .wrap { width: calc(100% - 24px); }
+  .logo__text { font-size: 15px; }
+  .logo__mark { width: 32px; height: 32px; font-size: 16px; border-radius: 10px; }
+  .xp__body { display: none; }
+  .xp { gap: 6px; padding: 4px 10px 4px 4px; }
+  .sound-btn { width: 38px; height: 38px; }
+  .hero__title { font-size: 36px; }
+  .eyebrow { font-size: 11px; padding: 6px 12px; }
+  .stats b { font-size: 24px; }
+  .section__head h2 { font-size: 28px; }
+  .studio { padding: 22px 18px; border-radius: 24px; }
+  .studio h2 { font-size: 30px; }
+  .questlist li { font-size: 16px; padding: 12px; gap: 10px; }
+  .group { padding: 12px; }
+  .group__name { font-size: 15px; }
+  .seg__btn { font-size: 14px; padding: 0 6px; }
+  .card { padding: 18px 16px 14px; }
+  .card__title { font-size: 19px; }
+  .copy-btn { font-size: 17px; padding: 0 16px; }
+  .term__body { font-size: 15px; padding: 14px; }
+  .labpromo { padding: 20px; }
+  .bugs { grid-template-columns: 1fr; }
+}
+
+/* ---------- 가로로 눕힌 스마트폰 (높이가 낮은 화면) ---------- */
+@media (max-height: 520px) and (orientation: landscape) {
+  .hud { position: relative; }
+  html { scroll-padding-top: 12px; }
+  .hud__row { padding: 6px 0 4px; }
+  .nav { padding-bottom: 6px; }
+  .nav a { padding: 5px 12px; font-size: 15px; }
+  .hero { padding-top: 28px; }
+  .hero__title { font-size: 44px; }
+  .totop { width: 54px; height: 54px; right: calc(14px + env(safe-area-inset-right)); bottom: calc(12px + env(safe-area-inset-bottom)); }
+  .modal { padding: 8px; align-items: center; }
+  .modal__panel { max-height: calc(100vh - 16px); max-height: calc(100dvh - 16px); border-radius: 20px; }
+  .modal__top { padding: 8px 14px; }
+  .modal__x { width: 40px; height: 40px; }
+  .modal__scroll { padding: 14px 18px; }
+  .modal__icon { width: 44px; height: 44px; font-size: 22px; }
+  .modal__title { font-size: 22px; margin-bottom: 4px; }
+  .modal__what { margin: 10px 0; padding: 10px 14px; font-size: 16px; }
+  .modal__foot { padding: 8px 16px; }
+  .modal__foot .copy-btn { min-height: 50px; }
+  .studio__stage { height: 220px; }
+}
+
+/* ---------- 태블릿 가로 (1024 ~ 1180) ---------- */
+@media (min-width: 1024px) and (max-width: 1180px) {
+  .hero { gap: 36px; }
+  .questboard { padding: 22px; }
+  .questlist li { font-size: 16px; }
 }
