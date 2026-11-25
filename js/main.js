@@ -55,7 +55,7 @@
     if (!c) return "";
     if (!t.sub) return c.name;
     var sub = t.sub.replace(/^[①-⑨]\s*/, "");
-    return c.group === "style3d" ? sub : "패션 " + sub;
+    return c.group === "fashion" ? "패션 " + sub : sub;
   }
   function tagsHTML(t) {
     return (
@@ -160,6 +160,7 @@
   var GROUPS = [
     { id: "all", emoji: "🌐", name: "전체 미션" },
     { id: "style3d", emoji: "🧊", name: "패션스타일과 3D", badge: "NEW 3D" },
+    { id: "fashionlab", emoji: "🧵", name: "패션 실무 LAB", badge: "NEW" },
     { id: "fashion", emoji: "⭐", name: "패션디자인 전공", badge: "전공 특화" },
     { id: "school", emoji: "🏫", name: "학교생활·일상" },
     { id: "hobby", emoji: "🎧", name: "취미·관심사" },
@@ -211,7 +212,7 @@
     var mount = document.getElementById("subChips");
     if (!mount) return;
     var items = [];
-    if (state.group === "fashion" || state.group === "style3d") {
+    if (state.group === "fashion" || state.group === "style3d" || state.group === "fashionlab") {
       var fc = CATS.filter(function (c) { return c.group === state.group; })[0];
       if (fc) items = fc.subs.map(function (s) {
         return { key: "s:" + s.name, emoji: s.emoji, name: s.name.replace(/^[①-⑨]\s*/, ""), n: TOPICS.filter(function (t) { return t.sub === s.name; }).length };
