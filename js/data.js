@@ -1,7 +1,8 @@
 /* =========================================================
-   고등학생 바이브코딩 LAB - 프롬프트 데이터 (총 309개)
+   고등학생 바이브코딩 LAB - 프롬프트 데이터 (총 349개, 310번부터 패션스타일과 3D 스튜디오)
    원본: 고등학생 바이브코딩 실습 프롬프트 모음 (2026.11)
-   - cats   : 분야 목록 (group: fashion / school / hobby / game / career)
+   - cats   : 분야 목록 (group: style3d / fashion / school / hobby / game / career)
+   - eng    : 3D 방식 (three = Three.js 3D, css = CSS 3D)
    - topics : 주제별 프롬프트 (lv: 1 쉬움, 2 보통, 3 도전 / type: 웹앱, 게임)
    - bugfix : 막힐 때 쓰는 문제 해결 프롬프트
    글을 고칠 때는 큰따옴표(") 안의 글자만 바꾸고, 줄바꿈은 \n 으로 씁니다.
@@ -49,6 +50,46 @@ window.VC_DATA = {
     {
      "name": "⑨ 패션 진로 체험",
      "emoji": "🧭"
+    }
+   ]
+  },
+  {
+   "id": "c30",
+   "name": "패션스타일과 3D 스튜디오",
+   "emoji": "🧊",
+   "group": "style3d",
+   "subs": [
+    {
+     "name": "① 패턴메이킹·의복구성 3D",
+     "emoji": "✂️"
+    },
+    {
+     "name": "② 패션 디자인 3D 컨피규레이터",
+     "emoji": "👗"
+    },
+    {
+     "name": "③ 패션 소품·굿즈 3D",
+     "emoji": "👜"
+    },
+    {
+     "name": "④ VMD·매장 디스플레이 3D",
+     "emoji": "🏬"
+    },
+    {
+     "name": "⑤ 헤어·메이크업·네일 3D",
+     "emoji": "💄"
+    },
+    {
+     "name": "⑥ 무대의상·패션쇼·반려동물 3D",
+     "emoji": "🎭"
+    },
+    {
+     "name": "⑦ 브랜드·라이브커머스·창업 3D",
+     "emoji": "📦"
+    },
+    {
+     "name": "⑧ 3D 패션 게임·진로·AI",
+     "emoji": "🎮"
     }
    ]
   },
@@ -4238,6 +4279,646 @@ window.VC_DATA = {
    "missions": [
     "우주 생활 퀴즈를 추가해줘"
    ]
+  },
+  {
+   "n": 310,
+   "title": "3D 마네킹 드레이핑 스튜디오",
+   "cat": "c30",
+   "sub": "① 패턴메이킹·의복구성 3D",
+   "lv": 3,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "회전하는 3D 드레스폼(마네킹)에 원단을 걸쳐 보며 소재·색·기장을 바꿔 보는 드레이핑 체험 스튜디오",
+   "link": "교과: 의복구성의 기초, 패턴메이킹 / 실습실: 비주얼머천다이징실",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 마네킹 드레이핑 스튜디오' 3D 웹앱을 만들어줘.\n\n[만들 것]\n회전하는 3D 드레스폼(마네킹)에 원단을 걸쳐 보며 소재·색·기장을 바꿔 보는 드레이핑 체험 스튜디오\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 의복구성의 기초, 패턴메이킹 / 실습실: 비주얼머천다이징실\n\n[핵심 기능]\n1. 가운데에 받침대와 기둥이 있는 3D 드레스폼(LatheGeometry로 어깨·가슴·허리·엉덩이 곡선을 살린 몸통)을 크게 표시\n2. 원단 종류 버튼 5개(면·린넨·실크·데님·니트): 바꿀 때마다 색감과 광택(roughness), 주름 깊이가 달라짐\n3. 드레이핑 원단은 잘게 나눈 PlaneGeometry의 꼭짓점을 사인파로 움직여 자연스럽게 출렁이는 주름 표현, 바람 세기 슬라이더\n4. 기장 슬라이더(크롭·미디·맥시)와 원단 색 선택(color input + 추천색 10개), 무늬(무지·스트라이프·체크·도트)는 CanvasTexture로 입힘\n5. '디자인 노트' 칸에 메모를 쓰고 현재 화면을 PNG로 저장\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 드레스폼은 아이보리 리넨 질감, 기둥과 받침대는 무광 블랙 메탈로 실제 실습실 마네킹처럼 표현\n- 원단은 양면 재질(side: THREE.DoubleSide)로 안쪽도 보이게 하고, 마네킹과 바닥에 부드러운 그림자\n\n[화면 디자인]\n- 분위기: 아틀리에 작업실 무드(따뜻한 베이지 배경, 우드톤 바닥, 은은한 스포트라이트)\n- 맨 위에 '3D 마네킹 드레이핑 스튜디오' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- PNG 저장은 WebGLRenderer를 preserveDrawingBuffer: true로 만들고 renderer.domElement.toDataURL('image/png')로 저장 링크를 자동 클릭하는 방식으로 구현\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "원단을 클릭한 채 끌어서 주름 위치를 옮기는 기능을 추가해줘",
+    "앞판·뒤판 원단을 각각 다른 색으로 고르는 기능을 추가해줘"
+   ]
+  },
+  {
+   "n": 311,
+   "title": "평면 패턴 → 입체 옷 조립기",
+   "cat": "c30",
+   "sub": "① 패턴메이킹·의복구성 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "css",
+   "what": "앞판·뒤판·소매 평면 패턴 조각이 버튼 하나로 3D 공간에서 접히고 조립되어 옷 형태가 되는 과정을 보여주는 학습 도구",
+   "link": "교과: 패턴메이킹, 의복구성의 기초",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '평면 패턴 → 입체 옷 조립기' 3D 웹앱을 만들어줘.\n\n[만들 것]\n앞판·뒤판·소매 평면 패턴 조각이 버튼 하나로 3D 공간에서 접히고 조립되어 옷 형태가 되는 과정을 보여주는 학습 도구\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패턴메이킹, 의복구성의 기초\n\n[핵심 기능]\n1. 처음에는 앞판·뒤판·소매 2장·칼라 패턴이 평평하게 펼쳐진 상태(각 조각에 이름·식서 방향 화살표·시접선 점선 표시)\n2. '조립하기' 버튼을 누르면 2초 동안 조각들이 회전·이동하며 입체 상의 형태로 맞춰지는 애니메이션, '펼치기'로 되돌리기\n3. 단계 버튼(1. 어깨 봉제 → 2. 옆선 봉제 → 3. 소매 달기 → 4. 칼라 달기)으로 한 단계씩 조립하며 단계별 설명 표시\n4. 패턴 조각에 마우스를 올리면 그 조각만 밝게 강조되고 이름 말풍선 표시\n\n[3D 연출 - 입체감이 가장 중요해]\n- 3D 무대는 perspective(1000~1400px)를 준 부모 안에 transform-style: preserve-3d로 만들고, 입체 물체는 div 여러 개를 rotateX/rotateY/translateZ로 조립할 것\n- 면마다 빛을 받는 방향에 따라 밝기를 다르게(linear-gradient 겹치기) 해서 진짜 입체처럼 보이게 하고, 바닥에는 흐린 타원 그림자\n- 마우스 드래그·손가락 스와이프로 회전, 손을 떼면 부드럽게 감속(관성), '시점 초기화' 버튼\n- 처음 열었을 때 입체 물체가 화면 가운데에 크게 보이게 할 것\n- 각 패턴 조각은 얇은 원단 판처럼 보이도록 앞면은 원단 무늬, 뒷면은 조금 어두운 안감 색\n- 조립이 끝나면 옷 전체가 천천히 회전하며 입체감을 보여줌\n\n[화면 디자인]\n- 분위기: 패턴지 느낌(연한 크래프트지 배경, 모눈 격자, 빨간 재단선 포인트)\n- 맨 위에 '평면 패턴 → 입체 옷 조립기' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 외부 라이브러리 없이 CSS 3D transform과 JavaScript만으로 구현\n- 드래그·스와이프는 마우스와 스마트폰 터치에서 모두 되도록 Pointer Events(pointerdown/move/up)를 사용하고, 해당 영역에 CSS touch-action: none 적용\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "스커트 패턴(앞판·뒤판·허리밴드) 조립 모드를 추가해줘",
+    "조각마다 실제 치수(cm)를 입력하면 비율이 바뀌게 해줘"
+   ]
+  },
+  {
+   "n": 312,
+   "title": "3D 다트·주름 원리 실험실",
+   "cat": "c30",
+   "sub": "① 패턴메이킹·의복구성 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "평면 원단에 다트·플리츠·개더·턱을 넣으면 원단이 어떻게 입체가 되는지 3D로 실험하는 학습 앱",
+   "link": "교과: 의복구성의 기초, 패턴메이킹",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 다트·주름 원리 실험실' 3D 웹앱을 만들어줘.\n\n[만들 것]\n평면 원단에 다트·플리츠·개더·턱을 넣으면 원단이 어떻게 입체가 되는지 3D로 실험하는 학습 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 의복구성의 기초, 패턴메이킹\n\n[핵심 기능]\n1. 탭 4개(다트·플리츠·개더·턱), 탭마다 평면 원단(잘게 나눈 PlaneGeometry)이 해당 기법으로 변형되는 모습 표시\n2. 깊이·개수·간격 슬라이더를 움직이면 꼭짓점을 실시간으로 다시 계산해 원단 모양이 바뀜\n3. '평면 ↔ 입체' 전환 버튼으로 변형 전후를 부드럽게 비교\n4. 각 기법의 원리, 어울리는 옷, 봉제 팁 설명 카드와 3문제 미니 퀴즈\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 원단에는 격자 무늬 CanvasTexture를 입혀 늘어나고 접히는 방향이 눈에 잘 보이게\n- 옆에서 비추는 조명으로 주름의 골과 산이 선명한 그림자로 보이게\n\n[화면 디자인]\n- 분위기: 깨끗한 연구실 무드(밝은 회색 배경, 민트 포인트, 얇은 선 아이콘)\n- 맨 위에 '3D 다트·주름 원리 실험실' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "완성된 변형 모양을 스커트 허리선에 적용해 보는 미리보기를 추가해줘",
+    "원단 두께(얇은·보통·두꺼운) 옵션을 추가해줘"
+   ]
+  },
+  {
+   "n": 313,
+   "title": "3D 치수 측정 마네킹",
+   "cat": "c30",
+   "sub": "① 패턴메이킹·의복구성 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "가슴·허리·엉덩이 둘레와 어깨너비를 입력하면 3D 마네킹 체형이 바뀌고 측정 위치가 빛나는 치수 학습 도구",
+   "link": "교과: 의복구성의 기초, 패턴메이킹 / 자격증: 패션스타일리스트",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 치수 측정 마네킹' 3D 웹앱을 만들어줘.\n\n[만들 것]\n가슴·허리·엉덩이 둘레와 어깨너비를 입력하면 3D 마네킹 체형이 바뀌고 측정 위치가 빛나는 치수 학습 도구\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 의복구성의 기초, 패턴메이킹 / 자격증: 패션스타일리스트\n\n[핵심 기능]\n1. 측정 항목 7개(가슴·허리·엉덩이 둘레, 어깨너비, 등길이, 팔길이, 총장)를 고르면 마네킹의 해당 위치에 빛나는 링이나 선이 표시\n2. 치수 입력값에 따라 마네킹 몸통의 각 높이별 반지름이 부드럽게 바뀜\n3. 입력한 치수로 KS 기준 참고 사이즈(S·M·L·XL)를 표로 추천하고 '참고용' 문구 표시\n4. 측정 방법 설명(줄자 위치, 자세)과 예시 치수 3세트 불러오기\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 측정 링은 발광하는 듯한 밝은 시안 색(MeshBasicMaterial)과 천천히 깜빡이는 효과\n- 카메라가 선택한 측정 위치로 부드럽게 이동하며 확대\n\n[화면 디자인]\n- 분위기: 스마트 피팅룸 무드(다크 네이비 배경, 시안 홀로그램 라인)\n- 맨 위에 '3D 치수 측정 마네킹' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "두 사람의 치수를 나란히 비교하는 모드를 추가해줘",
+    "측정값을 저장해서 목록으로 불러오는 기능을 추가해줘"
+   ]
+  },
+  {
+   "n": 314,
+   "title": "3D 재봉틀 구조 탐험",
+   "cat": "c30",
+   "sub": "① 패턴메이킹·의복구성 3D",
+   "lv": 3,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "기본 도형으로 조립한 3D 재봉틀을 돌려 보고 부품을 눌러 이름과 역할을 익히며, 분해 보기로 구조를 이해하는 학습 앱",
+   "link": "교과: 의복구성의 기초 / 동아리: 클로젯",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 재봉틀 구조 탐험' 3D 웹앱을 만들어줘.\n\n[만들 것]\n기본 도형으로 조립한 3D 재봉틀을 돌려 보고 부품을 눌러 이름과 역할을 익히며, 분해 보기로 구조를 이해하는 학습 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 의복구성의 기초 / 동아리: 클로젯\n\n[핵심 기능]\n1. 몸체·노루발·바늘대·실패꽂이·실채기·보빈·풀리·발판 등 부품 10개 이상을 박스·원기둥·토러스로 조립\n2. 부품을 클릭(Raycaster)하면 그 부품만 밝게 빛나고 이름·역할·관리 팁 카드 표시\n3. '분해 보기' 버튼: 부품들이 바깥 방향으로 벌어지는 익스플로드 뷰 애니메이션, 다시 누르면 조립\n4. '실 끼우기 순서' 모드: 실 경로를 TubeGeometry 선으로 번호 순서대로 그려 보여줌\n5. 부품 이름 맞히기 퀴즈 5문제\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 몸체는 광택 있는 크림색, 금속 부품은 metalness 높은 은색으로 재질 차이 표현\n- 작업대 위에 놓인 느낌으로 우드 테이블과 그림자\n\n[화면 디자인]\n- 분위기: 빈티지 공방 무드(크림·민트·브라운 톤)\n- 맨 위에 '3D 재봉틀 구조 탐험' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "바늘이 위아래로 움직이는 재봉 애니메이션 버튼을 추가해줘",
+    "오버로크 미싱 모델도 추가해서 비교하게 해줘"
+   ]
+  },
+  {
+   "n": 315,
+   "title": "3D 티셔츠 커스터마이저",
+   "cat": "c30",
+   "sub": "② 패션 디자인 3D 컨피규레이터",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "3D 티셔츠를 돌려 보며 색·핏·프린트 문구·그래픽을 바꾸는 나만의 티셔츠 디자인 도구",
+   "link": "교과: 패션 디자인의 기초, 패션 디자인의 실제",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 티셔츠 커스터마이저' 3D 웹앱을 만들어줘.\n\n[만들 것]\n3D 티셔츠를 돌려 보며 색·핏·프린트 문구·그래픽을 바꾸는 나만의 티셔츠 디자인 도구\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션 디자인의 기초, 패션 디자인의 실제\n\n[핵심 기능]\n1. 몸판(LatheGeometry 또는 둥근 BoxGeometry)과 소매(CylinderGeometry), 넥라인(TorusGeometry)을 조합한 3D 티셔츠\n2. 몸판 색, 소매 색, 넥 립 색을 따로 선택\n3. 앞면 프린트: 문구 입력·글꼴 3종·크기·위치 조절, 기본 그래픽 6종(별·하트·번개·물결·체크·원)을 Canvas로 그려 CanvasTexture로 적용\n4. 핏 버튼(슬림·레귤러·오버핏)으로 몸판과 소매 크기가 부드럽게 바뀜\n5. 앞·뒤·옆 시점 버튼과 PNG 저장\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 면 소재답게 roughness 높게, 프린트 부분은 살짝 광택\n- 티셔츠는 투명 아크릴 행거에 걸린 것처럼 위에 옷걸이 표시\n\n[화면 디자인]\n- 분위기: 스트릿 편집숍 무드(콘크리트 회색 배경, 형광 라임 포인트)\n- 맨 위에 '3D 티셔츠 커스터마이저' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- PNG 저장은 WebGLRenderer를 preserveDrawingBuffer: true로 만들고 renderer.domElement.toDataURL('image/png')로 저장 링크를 자동 클릭하는 방식으로 구현\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "뒷면 프린트도 따로 디자인하게 해줘",
+    "완성 디자인 3개를 저장하고 비교하는 컬렉션 보드를 추가해줘"
+   ]
+  },
+  {
+   "n": 316,
+   "title": "3D 스니커즈 컬러웨이 디자이너",
+   "cat": "c30",
+   "sub": "② 패션 디자인 3D 컨피규레이터",
+   "lv": 3,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "밑창·갑피·앞코·뒤축·끈·로고 패치 부위를 클릭해 색을 칠하는 3D 스니커즈 컬러웨이 디자인 도구(브랜드 로고 없이 오리지널)",
+   "link": "교과: 패션 소품 디자인과 생산",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 스니커즈 컬러웨이 디자이너' 3D 웹앱을 만들어줘.\n\n[만들 것]\n밑창·갑피·앞코·뒤축·끈·로고 패치 부위를 클릭해 색을 칠하는 3D 스니커즈 컬러웨이 디자인 도구(브랜드 로고 없이 오리지널)\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션 소품 디자인과 생산\n\n[핵심 기능]\n1. 둥근 밑창(ExtrudeGeometry), 갑피, 앞코, 뒤축, 끈(TubeGeometry 여러 줄), 혀를 조합한 3D 운동화\n2. 부위를 클릭하거나 부위 버튼을 누르면 선택 표시 후 팔레트 색 적용, 재질(가죽·스웨이드·메시·에나멜) 선택\n3. 추천 컬러웨이 프리셋 5종(올블랙·트리플화이트·파스텔·네온·어스톤)\n4. 내 컬러웨이 이름 짓기, PNG 저장, localStorage에 최대 6개 저장\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 에나멜은 반짝이게(roughness 낮게), 스웨이드는 무광, 메시는 구멍 무늬 CanvasTexture\n- 회전 진열대 위에 놓이고 위에서 스포트라이트\n\n[화면 디자인]\n- 분위기: 하이엔드 스니커즈 쇼룸 무드(블랙 배경, 반사되는 바닥)\n- 맨 위에 '3D 스니커즈 컬러웨이 디자이너' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- PNG 저장은 WebGLRenderer를 preserveDrawingBuffer: true로 만들고 renderer.domElement.toDataURL('image/png')로 저장 링크를 자동 클릭하는 방식으로 구현\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "양쪽 신발을 다르게 칠하는 언밸런스 모드를 추가해줘",
+    "밑창 두께(로우·미드·청키) 옵션을 추가해줘"
+   ]
+  },
+  {
+   "n": 317,
+   "title": "3D 원단 스와치 큐브",
+   "cat": "c30",
+   "sub": "② 패션 디자인 3D 컨피규레이터",
+   "lv": 1,
+   "type": "웹앱",
+   "eng": "css",
+   "what": "6개 면에 서로 다른 원단 무늬가 있는 3D 큐브를 돌리며 소재 특징을 익히는 스와치북",
+   "link": "교과: 패션 디자인의 기초 / 자격증: 세탁기능사",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 원단 스와치 큐브' 3D 웹앱을 만들어줘.\n\n[만들 것]\n6개 면에 서로 다른 원단 무늬가 있는 3D 큐브를 돌리며 소재 특징을 익히는 스와치북\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션 디자인의 기초 / 자격증: 세탁기능사\n\n[핵심 기능]\n1. CSS로 그린 원단 무늬 6종(데님 사선 능직, 체크, 헤링본, 니트 짜임, 레이스 느낌, 시어서커 줄무늬)을 큐브 6면에 배치\n2. 드래그로 큐브 회전, 면을 클릭하면 그 면이 정면으로 돌아오며 소재 이름·특징·계절·세탁 방법 카드 표시\n3. '원단 세트 바꾸기' 버튼으로 봄여름 세트/가을겨울 세트 교체\n\n[3D 연출 - 입체감이 가장 중요해]\n- 3D 무대는 perspective(1000~1400px)를 준 부모 안에 transform-style: preserve-3d로 만들고, 입체 물체는 div 여러 개를 rotateX/rotateY/translateZ로 조립할 것\n- 면마다 빛을 받는 방향에 따라 밝기를 다르게(linear-gradient 겹치기) 해서 진짜 입체처럼 보이게 하고, 바닥에는 흐린 타원 그림자\n- 마우스 드래그·손가락 스와이프로 회전, 손을 떼면 부드럽게 감속(관성), '시점 초기화' 버튼\n- 처음 열었을 때 입체 물체가 화면 가운데에 크게 보이게 할 것\n- 면마다 빛 방향에 따라 밝기가 다른 그라데이션을 겹쳐 실제 상자처럼\n- 큐브 아래 흐린 그림자와 천천히 위아래로 떠 있는 애니메이션\n\n[화면 디자인]\n- 분위기: 소재 라이브러리 무드(오프화이트 배경, 네이비 텍스트)\n- 맨 위에 '3D 원단 스와치 큐브' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 외부 라이브러리 없이 CSS 3D transform과 JavaScript만으로 구현\n- 드래그·스와이프는 마우스와 스마트폰 터치에서 모두 되도록 Pointer Events(pointerdown/move/up)를 사용하고, 해당 영역에 CSS touch-action: none 적용\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "큐브를 2개로 늘려 소재를 나란히 비교하게 해줘",
+    "나만의 무늬를 색 2개로 만들어 면에 넣는 기능을 추가해줘"
+   ]
+  },
+  {
+   "n": 318,
+   "title": "패션 일러스트 3D 틸트 콘셉트북",
+   "cat": "c30",
+   "sub": "② 패션 디자인 3D 컨피규레이터",
+   "lv": 1,
+   "type": "웹앱",
+   "eng": "css",
+   "what": "디자인 콘셉트 카드를 마우스·기울기에 따라 입체적으로 기울어지는 레이어 카드로 보여주는 콘셉트북",
+   "link": "교과: 패션 디자인의 실제 / 자격증: GTQ(일러스트레이션)",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '패션 일러스트 3D 틸트 콘셉트북' 3D 웹앱을 만들어줘.\n\n[만들 것]\n디자인 콘셉트 카드를 마우스·기울기에 따라 입체적으로 기울어지는 레이어 카드로 보여주는 콘셉트북\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션 디자인의 실제 / 자격증: GTQ(일러스트레이션)\n\n[핵심 기능]\n1. 콘셉트 카드 6장(제목·키워드·컬러칩·CSS로 그린 의상 실루엣)\n2. 마우스 위치(모바일은 손가락 드래그)에 따라 카드가 rotateX/Y로 기울고, 배경·의상·글자 레이어가 서로 다른 깊이로 움직이는 패럴랙스 효과\n3. 카드 클릭 시 확대되며 디자인 설명 표시, 카드 내용 편집 모드\n\n[3D 연출 - 입체감이 가장 중요해]\n- 3D 무대는 perspective(1000~1400px)를 준 부모 안에 transform-style: preserve-3d로 만들고, 입체 물체는 div 여러 개를 rotateX/rotateY/translateZ로 조립할 것\n- 면마다 빛을 받는 방향에 따라 밝기를 다르게(linear-gradient 겹치기) 해서 진짜 입체처럼 보이게 하고, 바닥에는 흐린 타원 그림자\n- 마우스 드래그·손가락 스와이프로 회전, 손을 떼면 부드럽게 감속(관성), '시점 초기화' 버튼\n- 처음 열었을 때 입체 물체가 화면 가운데에 크게 보이게 할 것\n- 레이어마다 translateZ 값을 다르게(배경 0, 실루엣 40px, 제목 80px) 해서 깊이감\n- 기울기에 따라 움직이는 반사광(하이라이트) 그라데이션\n\n[화면 디자인]\n- 분위기: 패션 매거진 무드(블랙&골드, 세리프 제목)\n- 맨 위에 '패션 일러스트 3D 틸트 콘셉트북' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 외부 라이브러리 없이 CSS 3D transform과 JavaScript만으로 구현\n- 드래그·스와이프는 마우스와 스마트폰 터치에서 모두 되도록 Pointer Events(pointerdown/move/up)를 사용하고, 해당 영역에 CSS touch-action: none 적용\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "카드 순서를 드래그로 바꾸는 기능을 추가해줘",
+    "카드 뒷면에 무드보드 컬러를 넣고 뒤집기 기능을 추가해줘"
+   ]
+  },
+  {
+   "n": 319,
+   "title": "3D 컬러 솔리드 배색 탐험기",
+   "cat": "c30",
+   "sub": "② 패션 디자인 3D 컨피규레이터",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "색상·채도·명도를 3D 원기둥 공간에 배치한 컬러 솔리드에서 색을 골라 패션 배색을 만드는 도구",
+   "link": "교과: 패션 디자인의 기초 / 자격증: 패션스타일리스트",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 컬러 솔리드 배색 탐험기' 3D 웹앱을 만들어줘.\n\n[만들 것]\n색상·채도·명도를 3D 원기둥 공간에 배치한 컬러 솔리드에서 색을 골라 패션 배색을 만드는 도구\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션 디자인의 기초 / 자격증: 패션스타일리스트\n\n[핵심 기능]\n1. 작은 구 수백 개를 원기둥 좌표(각도=색상, 반지름=채도, 높이=명도)에 배치한 3D 컬러 솔리드\n2. 구를 클릭하면 메인 컬러로 선택, 보색·유사색·톤온톤·톤인톤 조합 구가 함께 빛나며 연결선 표시\n3. 선택한 배색을 상의·하의·신발 코디 카드에 칠해서 미리보기\n4. HEX 코드 복사 버튼\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 선택되지 않은 구는 살짝 어둡게, 선택된 구는 커지며 빛나게\n- 천천히 자동 회전, 명도 축 단면 보기 버튼\n\n[화면 디자인]\n- 분위기: 디지털 컬러 랩 무드(어두운 배경, 컬러가 돋보이게)\n- 맨 위에 '3D 컬러 솔리드 배색 탐험기' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "퍼스널컬러 4계절 영역을 3D 공간에 반투명 구역으로 표시해줘",
+    "마음에 든 배색을 즐겨찾기로 저장하게 해줘"
+   ]
+  },
+  {
+   "n": 320,
+   "title": "3D 가방 커스터마이저",
+   "cat": "c30",
+   "sub": "③ 패션 소품·굿즈 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "토트백·크로스백·버킷백 중 하나를 골라 소재·색·손잡이·참 장식을 바꾸는 3D 가방 디자인 도구",
+   "link": "교과: 패션 소품 디자인과 생산",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 가방 커스터마이저' 3D 웹앱을 만들어줘.\n\n[만들 것]\n토트백·크로스백·버킷백 중 하나를 골라 소재·색·손잡이·참 장식을 바꾸는 3D 가방 디자인 도구\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션 소품 디자인과 생산\n\n[핵심 기능]\n1. 가방 형태 3종을 기본 도형 조합으로 제작(몸판 둥근 박스, 손잡이 TorusGeometry, 끈 TubeGeometry, 금속 버클)\n2. 소재 선택(캔버스·가죽·퀼팅·투명 PVC), 몸판/손잡이/장식 색 따로 선택\n3. 앞면에 이니셜 각인 또는 자수 문구(CanvasTexture), 참 장식(별·하트·진주) 달기\n4. 디자인 가격 자동 계산(소재·장식에 따라)과 디자인 요약 카드\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 투명 PVC는 MeshPhysicalMaterial의 transmission 또는 opacity로 반투명, 가죽은 은은한 광택\n- 가방이 살짝 흔들리는 손잡이 애니메이션\n\n[화면 디자인]\n- 분위기: 부티크 쇼룸 무드(로즈 베이지 배경, 골드 포인트)\n- 맨 위에 '3D 가방 커스터마이저' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "가방 안에 넣을 소품(지갑·파우치) 미니 모델을 추가해줘",
+    "앞·옆·위 3면 도면 보기를 추가해줘"
+   ]
+  },
+  {
+   "n": 321,
+   "title": "3D 모자 디자인 스튜디오",
+   "cat": "c30",
+   "sub": "③ 패션 소품·굿즈 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "볼캡·버킷햇·비니·베레모를 3D로 돌려 보며 색과 자수 문구를 넣는 모자 디자인 앱",
+   "link": "교과: 패션 소품 디자인과 생산 / 동아리: 클로젯",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 모자 디자인 스튜디오' 3D 웹앱을 만들어줘.\n\n[만들 것]\n볼캡·버킷햇·비니·베레모를 3D로 돌려 보며 색과 자수 문구를 넣는 모자 디자인 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션 소품 디자인과 생산 / 동아리: 클로젯\n\n[핵심 기능]\n1. 모자 4종(구 일부 + 챙은 납작한 원통·LatheGeometry, 비니는 니트 줄무늬 텍스처)\n2. 크라운 색·챙 색·단추 색 선택, 앞면 자수 문구(굵은 테두리 글씨 CanvasTexture)\n3. 마네킹 헤드(구)에 씌워 보기 토글\n4. 디자인 이름과 판매가 입력 후 굿즈 카드 만들기\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 자수 부분은 노멀 느낌이 나도록 테두리를 진하게 그려 도톰해 보이게\n- 모자가 머리 위로 내려와 씌워지는 애니메이션\n\n[화면 디자인]\n- 분위기: 캐주얼 편집숍 무드(크림 배경, 네이비·오렌지 포인트)\n- 맨 위에 '3D 모자 디자인 스튜디오' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "챙 길이와 각도 슬라이더를 추가해줘",
+    "패치(와펜) 3개를 원하는 위치에 붙이는 기능을 추가해줘"
+   ]
+  },
+  {
+   "n": 322,
+   "title": "3D 주얼리 회전 쇼케이스",
+   "cat": "c30",
+   "sub": "③ 패션 소품·굿즈 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "반지·귀걸이·목걸이를 금속 종류와 보석 색으로 디자인해 회전 진열대 위에서 감상하는 주얼리 쇼케이스",
+   "link": "교과: 패션 소품 디자인과 생산 / 자격증: 숍 마스터",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 주얼리 회전 쇼케이스' 3D 웹앱을 만들어줘.\n\n[만들 것]\n반지·귀걸이·목걸이를 금속 종류와 보석 색으로 디자인해 회전 진열대 위에서 감상하는 주얼리 쇼케이스\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션 소품 디자인과 생산 / 자격증: 숍 마스터\n\n[핵심 기능]\n1. 반지(TorusGeometry), 보석(OctahedronGeometry·IcosahedronGeometry), 목걸이 체인(작은 토러스 반복)으로 3종 제작\n2. 금속 선택(골드·로즈골드·실버), 보석 색·크기·개수 선택\n3. 진열대 조명 색(웜·쿨·핑크) 바꾸기, 반짝임 효과 켜기\n4. 상품 태그(이름·가격·소재) 카드와 PNG 저장\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 금속은 metalness 1, roughness 0.2로 반사감, 보석은 MeshPhysicalMaterial로 투명·굴절 느낌\n- 검은 벨벳 진열대 위에서 천천히 회전, 작은 반짝이 입자가 가끔 빛남\n\n[화면 디자인]\n- 분위기: 럭셔리 주얼리 매장 무드(딥 블랙 배경, 샴페인 골드)\n- 맨 위에 '3D 주얼리 회전 쇼케이스' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- PNG 저장은 WebGLRenderer를 preserveDrawingBuffer: true로 만들고 renderer.domElement.toDataURL('image/png')로 저장 링크를 자동 클릭하는 방식으로 구현\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "반지에 이니셜 각인 문구를 넣어줘",
+    "세트 구성(반지+귀걸이+목걸이) 할인 가격 계산을 추가해줘"
+   ]
+  },
+  {
+   "n": 323,
+   "title": "클로젯 굿즈 3D 목업 메이커",
+   "cat": "c30",
+   "sub": "③ 패션 소품·굿즈 3D",
+   "lv": 1,
+   "type": "웹앱",
+   "eng": "css",
+   "what": "동아리 굿즈(키링·에코백·뱃지·폰케이스·스티커)에 내 문구와 그래픽을 넣어 입체 목업으로 보여주는 앱",
+   "link": "동아리: 클로젯(패션 아이템 굿즈 개발) / 선택교과: 창업 아이템 개발",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '클로젯 굿즈 3D 목업 메이커' 3D 웹앱을 만들어줘.\n\n[만들 것]\n동아리 굿즈(키링·에코백·뱃지·폰케이스·스티커)에 내 문구와 그래픽을 넣어 입체 목업으로 보여주는 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n동아리: 클로젯(패션 아이템 굿즈 개발) / 선택교과: 창업 아이템 개발\n\n[핵심 기능]\n1. 굿즈 5종 탭, 각각 CSS 3D로 두께가 있는 입체 목업(키링 아크릴, 뱃지 원형 두께, 폰케이스 모서리 등)\n2. 문구·색·그래픽(이모지 1개) 입력 시 목업에 즉시 반영\n3. 드래그로 돌려 보기, 가격·수량 입력 후 굿즈 판매 카드 만들기\n\n[3D 연출 - 입체감이 가장 중요해]\n- 3D 무대는 perspective(1000~1400px)를 준 부모 안에 transform-style: preserve-3d로 만들고, 입체 물체는 div 여러 개를 rotateX/rotateY/translateZ로 조립할 것\n- 면마다 빛을 받는 방향에 따라 밝기를 다르게(linear-gradient 겹치기) 해서 진짜 입체처럼 보이게 하고, 바닥에는 흐린 타원 그림자\n- 마우스 드래그·손가락 스와이프로 회전, 손을 떼면 부드럽게 감속(관성), '시점 초기화' 버튼\n- 처음 열었을 때 입체 물체가 화면 가운데에 크게 보이게 할 것\n- 아크릴 키링은 반투명 + 반짝이는 테두리, 뱃지는 옆면 두께가 보이게 여러 겹\n- 목업이 공중에 떠 있는 그림자 효과\n\n[화면 디자인]\n- 분위기: 팝업 굿즈숍 무드(파스텔 라벤더·민트, 둥근 카드)\n- 맨 위에 '클로젯 굿즈 3D 목업 메이커' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 외부 라이브러리 없이 CSS 3D transform과 JavaScript만으로 구현\n- 드래그·스와이프는 마우스와 스마트폰 터치에서 모두 되도록 Pointer Events(pointerdown/move/up)를 사용하고, 해당 영역에 CSS touch-action: none 적용\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "굿즈 세트 패키지(박스에 담긴 모습) 보기를 추가해줘",
+    "굿즈별 제작 원가와 마진 계산기를 추가해줘"
+   ]
+  },
+  {
+   "n": 324,
+   "title": "3D 아이웨어 프레임 디자이너",
+   "cat": "c30",
+   "sub": "③ 패션 소품·굿즈 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "안경·선글라스 프레임 모양과 색, 렌즈 색을 바꾸고 얼굴형별 추천을 받는 3D 아이웨어 디자인 앱",
+   "link": "교과: 패션 소품 디자인과 생산, 패션스타일리스트 실무",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 아이웨어 프레임 디자이너' 3D 웹앱을 만들어줘.\n\n[만들 것]\n안경·선글라스 프레임 모양과 색, 렌즈 색을 바꾸고 얼굴형별 추천을 받는 3D 아이웨어 디자인 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션 소품 디자인과 생산, 패션스타일리스트 실무\n\n[핵심 기능]\n1. 프레임 모양 4종(라운드·스퀘어·보잉·캣아이)을 TubeGeometry 곡선으로 제작, 다리(템플)와 코받침\n2. 프레임 색·두께, 렌즈 색(투명·그레이·브라운·핑크 미러) 선택\n3. 얼굴형(둥근형·각진형·긴형·계란형) 선택 시 어울리는 프레임 추천과 이유\n4. 중립적인 3D 얼굴 마네킹(구)에 씌워 보기 토글\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 렌즈는 반투명, 미러 렌즈는 metalness로 반사\n- 안경다리가 접혔다 펴지는 애니메이션 버튼\n\n[화면 디자인]\n- 분위기: 안경 편집숍 무드(화이트 배경, 블랙 라인)\n- 맨 위에 '3D 아이웨어 프레임 디자이너' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "렌즈 색 그라데이션(위 진하고 아래 연하게) 옵션을 추가해줘",
+    "프레임에 패턴(호피·대모갑 느낌) 텍스처를 추가해줘"
+   ]
+  },
+  {
+   "n": 325,
+   "title": "3D 쇼윈도 VMD 시뮬레이터",
+   "cat": "c30",
+   "sub": "④ VMD·매장 디스플레이 3D",
+   "lv": 3,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "3D 쇼윈도 공간에 마네킹·소품·조명을 배치해 시즌 테마 디스플레이를 연출하는 VMD 시뮬레이터",
+   "link": "교과: 비주얼머천다이징 / 자격증: VMD전문가 / 실습실: 비주얼머천다이징실",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 쇼윈도 VMD 시뮬레이터' 3D 웹앱을 만들어줘.\n\n[만들 것]\n3D 쇼윈도 공간에 마네킹·소품·조명을 배치해 시즌 테마 디스플레이를 연출하는 VMD 시뮬레이터\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 비주얼머천다이징 / 자격증: VMD전문가 / 실습실: 비주얼머천다이징실\n\n[핵심 기능]\n1. 유리창이 있는 3D 쇼윈도 박스(바닥·뒷벽·옆벽), 마네킹 3개와 소품(화분·상자·의자·트리) 추가 버튼\n2. 바닥 위에서 물체를 드래그해 이동, 회전 버튼, 삭제\n3. 조명 3개(색·밝기) 조절과 시즌 테마 프리셋(봄 신상·여름 세일·가을 컬렉션·홀리데이)으로 벽 색과 소품 자동 변경\n4. VMD 원칙(삼각 구성, 반복, 리듬, 초점) 체크리스트를 보고 스스로 점수 매기기\n5. '고객 시점'(정면 거리에서 보는 카메라) 버튼과 PNG 저장\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 유리창은 아주 옅은 반투명 판, 바닥은 반사되는 광택 타일\n- 스포트라이트(SpotLight)로 마네킹에 빛이 떨어지고 그림자\n\n[화면 디자인]\n- 분위기: 백화점 쇼윈도 무드(웜 화이트 조명, 블랙 프레임)\n- 맨 위에 '3D 쇼윈도 VMD 시뮬레이터' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- PNG 저장은 WebGLRenderer를 preserveDrawingBuffer: true로 만들고 renderer.domElement.toDataURL('image/png')로 저장 링크를 자동 클릭하는 방식으로 구현\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "벽에 들어갈 그래픽 문구(세일·신상)를 입력하게 해줘",
+    "완성한 디스플레이를 저장하고 불러오는 기능을 추가해줘"
+   ]
+  },
+  {
+   "n": 326,
+   "title": "3D 매장 레이아웃 플래너",
+   "cat": "c30",
+   "sub": "④ VMD·매장 디스플레이 3D",
+   "lv": 3,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "격자 바닥 위에 행거·테이블·거울·계산대·피팅룸을 배치하고 위에서 보기/걸어서 보기로 확인하는 매장 설계 도구",
+   "link": "교과: 비주얼머천다이징 / 자격증: 숍 마스터 / 진로: 의류 매장 관리자",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 매장 레이아웃 플래너' 3D 웹앱을 만들어줘.\n\n[만들 것]\n격자 바닥 위에 행거·테이블·거울·계산대·피팅룸을 배치하고 위에서 보기/걸어서 보기로 확인하는 매장 설계 도구\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 비주얼머천다이징 / 자격증: 숍 마스터 / 진로: 의류 매장 관리자\n\n[핵심 기능]\n1. 10×8 격자 바닥, 집기 6종 버튼으로 추가, 격자에 맞춰 끌어서 배치(스냅), 회전·삭제\n2. '위에서 보기'(탑뷰)와 '걸어서 보기'(사람 눈높이, 방향키·화면 버튼으로 이동) 카메라 전환\n3. 고객 동선 화살표 그리기 모드\n4. 통로 폭이 너무 좁으면 빨간 경고 표시, 매장 면적·집기 수 요약\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 집기는 기본 도형 조합으로 디테일 있게(행거에 옷 여러 벌이 걸린 모습, 거울은 반짝이는 면)\n- 천장 조명 여러 개로 바닥에 부드러운 빛 웅덩이\n\n[화면 디자인]\n- 분위기: 미니멀 리테일 무드(화이트·라이트 우드·블랙 포인트)\n- 맨 위에 '3D 매장 레이아웃 플래너' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "매장 입구 위치를 정하고 첫 시선이 닿는 '골든존'을 표시해줘",
+    "배치를 JSON 텍스트로 내보내고 불러오는 기능을 추가해줘"
+   ]
+  },
+  {
+   "n": 327,
+   "title": "3D 행거 컬러 진열 퍼즐",
+   "cat": "c30",
+   "sub": "④ VMD·매장 디스플레이 3D",
+   "lv": 2,
+   "type": "게임",
+   "eng": "three",
+   "what": "3D 행거에 뒤섞여 걸린 옷들을 VMD 컬러 진열 원칙(밝은색→어두운색, 색상환 순서)에 맞게 정리하는 퍼즐 게임",
+   "link": "교과: 비주얼머천다이징 / 자격증: VMD전문가",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 행거 컬러 진열 퍼즐' 3D 웹 게임을 만들어줘.\n\n[만들 것]\n3D 행거에 뒤섞여 걸린 옷들을 VMD 컬러 진열 원칙(밝은색→어두운색, 색상환 순서)에 맞게 정리하는 퍼즐 게임\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 비주얼머천다이징 / 자격증: VMD전문가\n\n[핵심 기능]\n1. 긴 행거에 셔츠 10벌(박스·원기둥 조합 옷 모양)이 무작위 색 순서로 걸려 있음\n2. 옷 2벌을 차례로 클릭하면 위치가 부드럽게 바뀜(스왑 애니메이션)\n3. 스테이지 3개(명도 순서 → 색상환 순서 → 톤별 그룹), 이동 횟수와 시간으로 별 1~3개\n4. 각 스테이지 시작 전 진열 원칙 설명 카드\n5. 시작 화면(게임 제목, 방법 안내, 시작 버튼) → 게임 화면(점수·남은 시간 또는 생명 표시) → 결과 화면(최종 점수, 다시하기 버튼) 흐름\n6. 키보드와 마우스, 스마트폰 터치를 모두 지원\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 옷이 옷걸이에서 살짝 흔들리는 애니메이션\n- 정답이면 행거 전체에 빛이 흐르는 효과\n\n[화면 디자인]\n- 분위기: 매장 진열대 무드(라이트 그레이 벽, 우드 행거)\n- 맨 위에 '3D 행거 컬러 진열 퍼즐' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "바지·니트 등 다른 아이템 모양 스테이지를 추가해줘",
+    "최고 기록 저장과 랭킹을 추가해줘"
+   ]
+  },
+  {
+   "n": 328,
+   "title": "3D 팝업스토어 부스 디자이너",
+   "cat": "c30",
+   "sub": "④ VMD·매장 디스플레이 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "css",
+   "what": "벽 3면과 바닥으로 된 3D 팝업 부스를 회전하며 벽 그래픽·브랜드명·컬러를 꾸미는 부스 디자인 도구",
+   "link": "교과: 비주얼머천다이징, 브랜드 마케팅 / 현장체험: 브랜드 매장 견학",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 팝업스토어 부스 디자이너' 3D 웹앱을 만들어줘.\n\n[만들 것]\n벽 3면과 바닥으로 된 3D 팝업 부스를 회전하며 벽 그래픽·브랜드명·컬러를 꾸미는 부스 디자인 도구\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 비주얼머천다이징, 브랜드 마케팅 / 현장체험: 브랜드 매장 견학\n\n[핵심 기능]\n1. CSS 3D로 조립한 부스(뒷벽·좌벽·우벽·바닥·간판), 드래그로 회전해 둘러보기\n2. 벽마다 색·무늬·문구 편집, 간판에 오리지널 브랜드명과 로고(이모지+텍스트)\n3. 선반·포스터·조명 장식 토글\n4. 부스 콘셉트 설명 카드 자동 생성\n\n[3D 연출 - 입체감이 가장 중요해]\n- 3D 무대는 perspective(1000~1400px)를 준 부모 안에 transform-style: preserve-3d로 만들고, 입체 물체는 div 여러 개를 rotateX/rotateY/translateZ로 조립할 것\n- 면마다 빛을 받는 방향에 따라 밝기를 다르게(linear-gradient 겹치기) 해서 진짜 입체처럼 보이게 하고, 바닥에는 흐린 타원 그림자\n- 마우스 드래그·손가락 스와이프로 회전, 손을 떼면 부드럽게 감속(관성), '시점 초기화' 버튼\n- 처음 열었을 때 입체 물체가 화면 가운데에 크게 보이게 할 것\n- 벽 면마다 밝기를 다르게, 바닥에 반사 그라데이션과 그림자\n- 카메라가 부스 안으로 들어가는 줌인 버튼\n\n[화면 디자인]\n- 분위기: 성수동 팝업 무드(콘크리트 회색 + 비비드 한 색 포인트)\n- 맨 위에 '3D 팝업스토어 부스 디자이너' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 외부 라이브러리 없이 CSS 3D transform과 JavaScript만으로 구현\n- 드래그·스와이프는 마우스와 스마트폰 터치에서 모두 되도록 Pointer Events(pointerdown/move/up)를 사용하고, 해당 영역에 CSS touch-action: none 적용\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "부스 테마 프리셋 3종(뷰티·스트릿·빈티지)을 추가해줘",
+    "방문객 동선 안내 화살표를 바닥에 추가해줘"
+   ]
+  },
+  {
+   "n": 329,
+   "title": "VMD전문가 3D 플립카드 퀴즈",
+   "cat": "c30",
+   "sub": "④ VMD·매장 디스플레이 3D",
+   "lv": 1,
+   "type": "게임",
+   "eng": "css",
+   "what": "VMD 용어와 진열 원칙을 3D로 뒤집히는 카드 덱으로 공부하고 퀴즈를 푸는 자격증 대비 게임",
+   "link": "자격증: VMD전문가, 패션스타일리스트",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 'VMD전문가 3D 플립카드 퀴즈' 3D 웹 게임을 만들어줘.\n\n[만들 것]\nVMD 용어와 진열 원칙을 3D로 뒤집히는 카드 덱으로 공부하고 퀴즈를 푸는 자격증 대비 게임\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n자격증: VMD전문가, 패션스타일리스트\n\n[핵심 기능]\n1. 용어 카드 20장(VP·PP·IP, 페이싱, 골든존, 삼각 구성, 리듬, 컬러 블로킹 등) 3D 플립\n2. 카드 덱이 겹쳐 쌓인 입체 더미에서 한 장씩 넘기기(스와이프)\n3. 퀴즈 모드 10문제(4지선다), 틀린 카드만 다시 보기\n4. 시작 화면 → 학습/퀴즈 → 결과 화면 흐름\n5. 키보드와 마우스, 스마트폰 터치를 모두 지원\n\n[3D 연출 - 입체감이 가장 중요해]\n- 3D 무대는 perspective(1000~1400px)를 준 부모 안에 transform-style: preserve-3d로 만들고, 입체 물체는 div 여러 개를 rotateX/rotateY/translateZ로 조립할 것\n- 면마다 빛을 받는 방향에 따라 밝기를 다르게(linear-gradient 겹치기) 해서 진짜 입체처럼 보이게 하고, 바닥에는 흐린 타원 그림자\n- 마우스 드래그·손가락 스와이프로 회전, 손을 떼면 부드럽게 감속(관성), '시점 초기화' 버튼\n- 처음 열었을 때 입체 물체가 화면 가운데에 크게 보이게 할 것\n- 카드가 넘어갈 때 실제 종이처럼 휘며 날아가는 3D 애니메이션\n- 카드 두께와 그림자로 덱이 쌓인 느낌\n\n[화면 디자인]\n- 분위기: 스터디 카드 무드(네이비·화이트·옐로 포인트)\n- 맨 위에 'VMD전문가 3D 플립카드 퀴즈' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 외부 라이브러리 없이 CSS 3D transform과 JavaScript만으로 구현\n- 드래그·스와이프는 마우스와 스마트폰 터치에서 모두 되도록 Pointer Events(pointerdown/move/up)를 사용하고, 해당 영역에 CSS touch-action: none 적용\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "타이머 모드를 추가해줘",
+    "패션스타일리스트 자격증 용어 카드 세트를 추가해줘"
+   ]
+  },
+  {
+   "n": 330,
+   "title": "3D 네일아트 디자이너",
+   "cat": "c30",
+   "sub": "⑤ 헤어·메이크업·네일 3D",
+   "lv": 3,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "3D 손 모형의 다섯 손톱에 쉐입·컬러·그라데이션·파츠를 디자인하는 네일아트 시뮬레이터",
+   "link": "교과: 네일 미용 / 자격증: 미용사(네일) / 동아리: 뷰티에콜로지",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 네일아트 디자이너' 3D 웹앱을 만들어줘.\n\n[만들 것]\n3D 손 모형의 다섯 손톱에 쉐입·컬러·그라데이션·파츠를 디자인하는 네일아트 시뮬레이터\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 네일 미용 / 자격증: 미용사(네일) / 동아리: 뷰티에콜로지\n\n[핵심 기능]\n1. 손바닥(둥근 박스)과 손가락 5개(원기둥+구 조합, CapsuleGeometry 사용 금지)로 만든 중립적인 손 모형\n2. 손톱 쉐입 4종(라운드·스퀘어·오벌·아몬드), 손가락별로 선택하거나 전체 적용\n3. 컬러, 프렌치, 그라데이션, 글리터, 마블 무늬(CanvasTexture), 파츠(진주·스톤·리본) 올리기\n4. 손 포즈 3종(펼침·살짝 오므림·옆모습) 전환, 시술 순서 안내 카드\n5. 디자인 이름·가격표 카드와 PNG 저장\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 젤 네일 광택: MeshPhysicalMaterial clearcoat 1로 반짝이는 코팅감\n- 파츠는 작은 구·팔면체로 입체감, 바닥에 부드러운 그림자\n\n[화면 디자인]\n- 분위기: 네일숍 무드(밀크 핑크 배경, 로즈골드 포인트)\n- 맨 위에 '3D 네일아트 디자이너' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- PNG 저장은 WebGLRenderer를 preserveDrawingBuffer: true로 만들고 renderer.domElement.toDataURL('image/png')로 저장 링크를 자동 클릭하는 방식으로 구현\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "발(페디큐어) 모델을 추가해줘",
+    "시즌별 추천 네일 디자인 프리셋 4개를 추가해줘"
+   ]
+  },
+  {
+   "n": 331,
+   "title": "3D 헤어 스타일링 마네킹 헤드",
+   "cat": "c30",
+   "sub": "⑤ 헤어·메이크업·네일 3D",
+   "lv": 3,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "3D 마네킹 헤드에 헤어 길이·스타일·컬·컬러를 바꿔 보는 헤어 스타일링 시뮬레이터",
+   "link": "교과: 헤어 미용 / 자격증: 미용사(일반) / 특강: 맞춤형 헤어 스타일링",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 헤어 스타일링 마네킹 헤드' 3D 웹앱을 만들어줘.\n\n[만들 것]\n3D 마네킹 헤드에 헤어 길이·스타일·컬·컬러를 바꿔 보는 헤어 스타일링 시뮬레이터\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 헤어 미용 / 자격증: 미용사(일반) / 특강: 맞춤형 헤어 스타일링\n\n[핵심 기능]\n1. 중립적인 마네킹 헤드(구·원기둥 조합)와 받침대, 실습실 마네킹처럼 표현\n2. 스타일 6종(숏컷·단발 보브·레이어드 미디엄·롱 스트레이트·포니테일·번)을 여러 개의 구·튜브 묶음으로 볼륨 있게 제작\n3. 컬 정도 슬라이더(가는 머리 가닥 TubeGeometry의 휘어짐), 앞머리 유무\n4. 헤어 컬러 12색 + 투톤(옴브레) 옵션, 얼굴형별 추천 스타일 카드\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 머리카락은 결이 보이는 줄무늬 CanvasTexture와 은은한 광택(sheen 느낌)\n- 드라이어 버튼을 누르면 머리 가닥이 바람에 흩날리는 애니메이션\n\n[화면 디자인]\n- 분위기: 헤어살롱 무드(웜 그레이 배경, 골드 미러 프레임)\n- 맨 위에 '3D 헤어 스타일링 마네킹 헤드' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "헤어 액세서리(핀·리본·머리띠)를 추가해줘",
+    "전·후 비교 화면(두 헤드 나란히)을 추가해줘"
+   ]
+  },
+  {
+   "n": 332,
+   "title": "3D 아이섀도 팔레트 패키지 디자이너",
+   "cat": "c30",
+   "sub": "⑤ 헤어·메이크업·네일 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "열리고 닫히는 3D 아이섀도 팔레트 케이스를 만들고 색 구성과 패키지 디자인을 정하는 앱",
+   "link": "교과: 응용 메이크업, 브랜드 마케팅 / 자격증: 미용사(메이크업)",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 아이섀도 팔레트 패키지 디자이너' 3D 웹앱을 만들어줘.\n\n[만들 것]\n열리고 닫히는 3D 아이섀도 팔레트 케이스를 만들고 색 구성과 패키지 디자인을 정하는 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 응용 메이크업, 브랜드 마케팅 / 자격증: 미용사(메이크업)\n\n[핵심 기능]\n1. 뚜껑이 경첩처럼 열리는 팔레트 케이스(박스 2개 + 회전 애니메이션), 안쪽 거울\n2. 섀도 칸 9개 색 지정, 질감(매트·쉬머·글리터) 선택\n3. 퍼스널컬러(봄웜·여름쿨·가을웜·겨울쿨) 프리셋으로 자동 구성\n4. 케이스 색·뚜껑 문구(제품명) 디자인, 제품 설명 카드\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 쉬머는 metalness 약간, 글리터는 작은 반짝이 점 텍스처, 거울은 반사 재질\n- 케이스가 열릴 때 안쪽에서 은은한 빛\n\n[화면 디자인]\n- 분위기: 코스메틱 브랜드 무드(누드 베이지·버건디)\n- 맨 위에 '3D 아이섀도 팔레트 패키지 디자이너' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "추천 메이크업 순서 가이드를 추가해줘",
+    "블러셔·하이라이터 칸이 있는 대형 팔레트 모드를 추가해줘"
+   ]
+  },
+  {
+   "n": 333,
+   "title": "3D 립스틱 컬러 랩",
+   "cat": "c30",
+   "sub": "⑤ 헤어·메이크업·네일 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "돌리면 올라오는 3D 립스틱의 케이스·컬러·마감을 디자인하고 컬러 이름을 짓는 앱",
+   "link": "교과: 응용 메이크업, 창업 아이템 개발",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 립스틱 컬러 랩' 3D 웹앱을 만들어줘.\n\n[만들 것]\n돌리면 올라오는 3D 립스틱의 케이스·컬러·마감을 디자인하고 컬러 이름을 짓는 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 응용 메이크업, 창업 아이템 개발\n\n[핵심 기능]\n1. 케이스(LatheGeometry)와 립스틱 심(원기둥 + 비스듬히 자른 끝)\n2. '돌리기' 버튼으로 심이 올라오고 뚜껑이 열리는 애니메이션\n3. 컬러 선택, 마감(매트·새틴·글로스), 케이스 색·금속 링\n4. 컬러 이름 자동 추천(색 계열 + 감성 단어 조합)과 제품 카드\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 글로스는 clearcoat로 촉촉한 광택, 금속 링은 반사\n- 립스틱 아래 대리석 느낌 받침대와 그림자\n\n[화면 디자인]\n- 분위기: 뷰티 부티크 무드(대리석 화이트, 레드 포인트)\n- 맨 위에 '3D 립스틱 컬러 랩' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "립스틱 3개 세트 진열 모드를 추가해줘",
+    "입술 모양 스와치 미리보기를 추가해줘"
+   ]
+  },
+  {
+   "n": 334,
+   "title": "뷰티 박람회 3D 부스 투어",
+   "cat": "c30",
+   "sub": "⑤ 헤어·메이크업·네일 3D",
+   "lv": 1,
+   "type": "웹앱",
+   "eng": "css",
+   "what": "뷰티 박람회 부스 6곳이 원형으로 배치된 3D 캐러셀을 돌며 각 부스의 트렌드를 둘러보는 투어 앱",
+   "link": "현장체험: 뷰티 박람회 견학 / 특강: K-뷰티 전문가 특강",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '뷰티 박람회 3D 부스 투어' 3D 웹앱을 만들어줘.\n\n[만들 것]\n뷰티 박람회 부스 6곳이 원형으로 배치된 3D 캐러셀을 돌며 각 부스의 트렌드를 둘러보는 투어 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n현장체험: 뷰티 박람회 견학 / 특강: K-뷰티 전문가 특강\n\n[핵심 기능]\n1. 부스 6개(헤어·메이크업·네일·스킨케어·향수·뷰티테크) 카드가 원형 3D 캐러셀로 배치\n2. 좌우 버튼·스와이프로 회전, 앞에 온 부스 클릭 시 상세(트렌드 키워드 3개, 체험 미션)\n3. 방문 도장 찍기와 6곳 모두 방문 시 완주 배지\n\n[3D 연출 - 입체감이 가장 중요해]\n- 3D 무대는 perspective(1000~1400px)를 준 부모 안에 transform-style: preserve-3d로 만들고, 입체 물체는 div 여러 개를 rotateX/rotateY/translateZ로 조립할 것\n- 면마다 빛을 받는 방향에 따라 밝기를 다르게(linear-gradient 겹치기) 해서 진짜 입체처럼 보이게 하고, 바닥에는 흐린 타원 그림자\n- 마우스 드래그·손가락 스와이프로 회전, 손을 떼면 부드럽게 감속(관성), '시점 초기화' 버튼\n- 처음 열었을 때 입체 물체가 화면 가운데에 크게 보이게 할 것\n- 캐러셀 부스는 입체 박스 형태(앞면·옆면), 뒤쪽 부스는 흐리고 작게\n- 바닥 반사 효과\n\n[화면 디자인]\n- 분위기: 박람회 무드(화이트·라벤더, 조명 느낌 그라데이션)\n- 맨 위에 '뷰티 박람회 3D 부스 투어' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 외부 라이브러리 없이 CSS 3D transform과 JavaScript만으로 구현\n- 드래그·스와이프는 마우스와 스마트폰 터치에서 모두 되도록 Pointer Events(pointerdown/move/up)를 사용하고, 해당 영역에 CSS touch-action: none 적용\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "부스마다 미니 퀴즈 1문제를 추가해줘",
+    "내가 기획한 부스를 추가하는 기능을 넣어줘"
+   ]
+  },
+  {
+   "n": 335,
+   "title": "3D 런웨이 패션쇼",
+   "cat": "c30",
+   "sub": "⑥ 무대의상·패션쇼·반려동물 3D",
+   "lv": 3,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "3D 런웨이 위로 내가 정한 룩 순서대로 마네킹 모델이 워킹하고 조명·음악 비트가 연출되는 패션쇼 시뮬레이터",
+   "link": "교과: 패션스타일리스트 실무, 무대의상 / 현장체험: 패션쇼 견학",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 런웨이 패션쇼' 3D 웹앱을 만들어줘.\n\n[만들 것]\n3D 런웨이 위로 내가 정한 룩 순서대로 마네킹 모델이 워킹하고 조명·음악 비트가 연출되는 패션쇼 시뮬레이터\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션스타일리스트 실무, 무대의상 / 현장체험: 패션쇼 견학\n\n[핵심 기능]\n1. 길고 반짝이는 런웨이와 양옆 관객석(작은 박스 줄), 끝에는 포토월\n2. 마네킹 모델 5명(기본 도형 조합, 얼굴 없음)과 룩 5개(상의·하의 색과 형태 선택)\n3. '쇼 시작'을 누르면 순서대로 걸어 나와 끝에서 멈춰 포즈 후 돌아감(다리 흔들림 애니메이션)\n4. 조명 모드(화이트·컬러·스트로브), Web Audio로 만든 간단한 비트음 켜기/끄기\n5. 큐시트 표(순서·룩 이름·콘셉트) 편집\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- SpotLight가 모델을 따라가며 비추고 바닥에 반사\n- 관객석 쪽 카메라 플래시(작은 빛 반짝임) 효과\n\n[화면 디자인]\n- 분위기: 하이패션 쇼장 무드(블랙 배경, 화이트 런웨이 라이트)\n- 맨 위에 '3D 런웨이 패션쇼' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "카메라 시점(정면·측면·위) 자동 전환 연출을 추가해줘",
+    "피날레(모든 모델 함께 워킹)를 추가해줘"
+   ]
+  },
+  {
+   "n": 336,
+   "title": "3D 무대의상 조명 시뮬레이터",
+   "cat": "c30",
+   "sub": "⑥ 무대의상·패션쇼·반려동물 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "무대 위 의상을 입은 마네킹에 조명 색과 각도를 바꿔 장면별 무대 분위기를 연출하는 시뮬레이터",
+   "link": "교과: 무대의상 / 선택교과: 문학과 영상",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 무대의상 조명 시뮬레이터' 3D 웹앱을 만들어줘.\n\n[만들 것]\n무대 위 의상을 입은 마네킹에 조명 색과 각도를 바꿔 장면별 무대 분위기를 연출하는 시뮬레이터\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 무대의상 / 선택교과: 문학과 영상\n\n[핵심 기능]\n1. 무대 바닥·뒤 막·커튼(웨이브 Plane)과 가운데 의상 마네킹(드레스·망토·갑옷 느낌 3종)\n2. 조명 3개(앞·옆·뒤) 각각 색·밝기·각도 조절, 조명 위치 표시 구\n3. 장면 프리셋(새벽·한낮·노을·밤·긴장·축제)과 의상 소재(새틴·벨벳·메탈릭) 선택\n4. 장면 설명과 의상 콘셉트 메모\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 벨벳은 거칠고 어둡게, 새틴은 광택, 메탈릭은 반사로 조명에 따라 달라 보이게\n- 연기(반투명 입자) 효과 토글\n\n[화면 디자인]\n- 분위기: 극장 무대 무드(딥 레드 커튼, 블랙)\n- 맨 위에 '3D 무대의상 조명 시뮬레이터' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "장면 전환을 순서대로 재생하는 '리허설 모드'를 추가해줘",
+    "의상 색을 바꾸는 팔레트를 추가해줘"
+   ]
+  },
+  {
+   "n": 337,
+   "title": "3D 반려동물 패션 디자이너",
+   "cat": "c30",
+   "sub": "⑥ 무대의상·패션쇼·반려동물 3D",
+   "lv": 3,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "3D 강아지·고양이 모델에 조끼·후드·망토·리본을 입히고 색과 무늬를 디자인하는 반려동물 패션 앱",
+   "link": "교과: 반려동물 패션 디자인",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 반려동물 패션 디자이너' 3D 웹앱을 만들어줘.\n\n[만들 것]\n3D 강아지·고양이 모델에 조끼·후드·망토·리본을 입히고 색과 무늬를 디자인하는 반려동물 패션 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 반려동물 패션 디자인\n\n[핵심 기능]\n1. 둥근 도형으로 만든 귀여운 오리지널 강아지·고양이 모델(몸·머리·귀·꼬리·다리)\n2. 옷 4종(조끼·후드티·망토·리본 목걸이), 색과 무늬(체크·도트·줄무늬) CanvasTexture\n3. 사이즈(XS~L) 선택 시 옷 크기 변화, 반려동물 치수(목둘레·가슴둘레·등길이) 입력 후 추천 사이즈\n4. 꼬리 흔들기·고개 갸웃 애니메이션, 디자인 카드 저장\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 털 느낌은 roughness 높고 살짝 부드러운 색 그라데이션\n- 푹신한 쿠션 위에 앉아 있는 연출과 그림자\n\n[화면 디자인]\n- 분위기: 펫 부티크 무드(버터 옐로·스카이 블루, 둥근 UI)\n- 맨 위에 '3D 반려동물 패션 디자이너' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "토끼 모델을 추가해줘",
+    "보호자와 맞춤 커플룩 색을 추천하는 기능을 추가해줘"
+   ]
+  },
+  {
+   "n": 338,
+   "title": "3D 패션쇼 팝업 초대장",
+   "cat": "c30",
+   "sub": "⑥ 무대의상·패션쇼·반려동물 3D",
+   "lv": 1,
+   "type": "웹앱",
+   "eng": "css",
+   "what": "클릭하면 접힌 카드가 펼쳐지며 입체 팝업 무대가 솟아오르는 패션쇼 초대장 페이지",
+   "link": "교과: 패션스타일리스트 실무, 브랜드 마케팅",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 패션쇼 팝업 초대장' 3D 웹앱을 만들어줘.\n\n[만들 것]\n클릭하면 접힌 카드가 펼쳐지며 입체 팝업 무대가 솟아오르는 패션쇼 초대장 페이지\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션스타일리스트 실무, 브랜드 마케팅\n\n[핵심 기능]\n1. 봉투 → 카드 펼침 → 팝업 무대(런웨이·조명·쇼 제목)가 세워지는 3단계 애니메이션\n2. 쇼 제목·일시·장소·드레스코드·콘셉트 입력 시 즉시 반영\n3. 색 테마 3종(블랙골드·화이트실버·로즈)과 다시 접기 버튼\n\n[3D 연출 - 입체감이 가장 중요해]\n- 3D 무대는 perspective(1000~1400px)를 준 부모 안에 transform-style: preserve-3d로 만들고, 입체 물체는 div 여러 개를 rotateX/rotateY/translateZ로 조립할 것\n- 면마다 빛을 받는 방향에 따라 밝기를 다르게(linear-gradient 겹치기) 해서 진짜 입체처럼 보이게 하고, 바닥에는 흐린 타원 그림자\n- 마우스 드래그·손가락 스와이프로 회전, 손을 떼면 부드럽게 감속(관성), '시점 초기화' 버튼\n- 처음 열었을 때 입체 물체가 화면 가운데에 크게 보이게 할 것\n- 팝업 요소들이 rotateX로 일어서며 각기 다른 깊이(translateZ)에 배치\n- 카드 안쪽 그림자로 종이 접힘 느낌\n\n[화면 디자인]\n- 분위기: 프리미엄 인비테이션 무드(펄 종이 질감)\n- 맨 위에 '3D 패션쇼 팝업 초대장' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 외부 라이브러리 없이 CSS 3D transform과 JavaScript만으로 구현\n- 드래그·스와이프는 마우스와 스마트폰 터치에서 모두 되도록 Pointer Events(pointerdown/move/up)를 사용하고, 해당 영역에 CSS touch-action: none 적용\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "참석 여부 버튼과 남은 좌석 카운트를 추가해줘",
+    "D-day 카운트다운을 추가해줘"
+   ]
+  },
+  {
+   "n": 339,
+   "title": "3D 룩북 커버플로우",
+   "cat": "c30",
+   "sub": "⑥ 무대의상·패션쇼·반려동물 3D",
+   "lv": 1,
+   "type": "웹앱",
+   "eng": "css",
+   "what": "룩 카드들이 3D로 기울어져 넘어가는 커버플로우 방식의 시즌 룩북",
+   "link": "교과: 패션스타일리스트 실무, 패션 디자인의 실제",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 룩북 커버플로우' 3D 웹앱을 만들어줘.\n\n[만들 것]\n룩 카드들이 3D로 기울어져 넘어가는 커버플로우 방식의 시즌 룩북\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션스타일리스트 실무, 패션 디자인의 실제\n\n[핵심 기능]\n1. 룩 카드 8장(CSS로 그린 의상 일러스트, 룩 이름, 키워드)\n2. 가운데 카드는 정면, 양옆은 rotateY로 기울어져 겹쳐 보이는 커버플로우, 스와이프·키보드 이동\n3. 카드 클릭 시 상세(아이템 구성, 스타일링 포인트), 룩 편집 모드\n\n[3D 연출 - 입체감이 가장 중요해]\n- 3D 무대는 perspective(1000~1400px)를 준 부모 안에 transform-style: preserve-3d로 만들고, 입체 물체는 div 여러 개를 rotateX/rotateY/translateZ로 조립할 것\n- 면마다 빛을 받는 방향에 따라 밝기를 다르게(linear-gradient 겹치기) 해서 진짜 입체처럼 보이게 하고, 바닥에는 흐린 타원 그림자\n- 마우스 드래그·손가락 스와이프로 회전, 손을 떼면 부드럽게 감속(관성), '시점 초기화' 버튼\n- 처음 열었을 때 입체 물체가 화면 가운데에 크게 보이게 할 것\n- 카드 아래 반사(뒤집힌 흐린 복사본)\n- 넘길 때 부드러운 관성 애니메이션\n\n[화면 디자인]\n- 분위기: 시즌 컬렉션 무드(뉴트럴 톤, 넓은 여백)\n- 맨 위에 '3D 룩북 커버플로우' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 외부 라이브러리 없이 CSS 3D transform과 JavaScript만으로 구현\n- 드래그·스와이프는 마우스와 스마트폰 터치에서 모두 되도록 Pointer Events(pointerdown/move/up)를 사용하고, 해당 영역에 CSS touch-action: none 적용\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "룩별 좋아요와 인기 1위 표시를 추가해줘",
+    "자동 재생(슬라이드쇼) 모드를 추가해줘"
+   ]
+  },
+  {
+   "n": 340,
+   "title": "3D 브랜드 쇼핑백·패키지 목업",
+   "cat": "c30",
+   "sub": "⑦ 브랜드·라이브커머스·창업 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "오리지널 패션 브랜드의 쇼핑백과 선물 상자를 3D로 디자인하고 상자가 열리는 언박싱 연출까지 보는 앱",
+   "link": "교과: 브랜드 마케팅 / 선택교과: 창업 아이템 개발",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 브랜드 쇼핑백·패키지 목업' 3D 웹앱을 만들어줘.\n\n[만들 것]\n오리지널 패션 브랜드의 쇼핑백과 선물 상자를 3D로 디자인하고 상자가 열리는 언박싱 연출까지 보는 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 브랜드 마케팅 / 선택교과: 창업 아이템 개발\n\n[핵심 기능]\n1. 쇼핑백(박스 + 손잡이 TubeGeometry)과 선물 상자(뚜껑 분리), 리본\n2. 브랜드명·슬로건 입력, 로고 스타일 3종(세리프·산세리프·손글씨 느낌)을 CanvasTexture로 인쇄\n3. 종이 질감(크래프트·무광·유광) 선택과 색상\n4. '언박싱' 버튼: 리본이 풀리고 뚜껑이 열리며 안에서 상품 카드가 떠오름\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 유광 종이는 반사, 크래프트지는 섬유 질감 텍스처\n- 쇼핑백과 상자가 나란히 놓인 제품 사진 같은 구도와 그림자\n\n[화면 디자인]\n- 분위기: 브랜드 스튜디오 무드(뉴트럴 베이지 배경, 소프트 조명)\n- 맨 위에 '3D 브랜드 쇼핑백·패키지 목업' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "택(행택) 디자인을 추가해줘",
+    "브랜드 컬러 3개를 저장하고 전체에 적용하는 기능을 추가해줘"
+   ]
+  },
+  {
+   "n": 341,
+   "title": "라이브커머스 3D 상품 쇼케이스",
+   "cat": "c30",
+   "sub": "⑦ 브랜드·라이브커머스·창업 3D",
+   "lv": 3,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "회전대 위 3D 상품을 소개하며 실시간 채팅·타임세일·구매 알림이 뜨는 라이브커머스 방송 화면 시뮬레이터",
+   "link": "선택교과: 라이브커머스, SNS 마케팅",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '라이브커머스 3D 상품 쇼케이스' 3D 웹앱을 만들어줘.\n\n[만들 것]\n회전대 위 3D 상품을 소개하며 실시간 채팅·타임세일·구매 알림이 뜨는 라이브커머스 방송 화면 시뮬레이터\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n선택교과: 라이브커머스, SNS 마케팅\n\n[핵심 기능]\n1. 세로형(9:16) 방송 화면, 가운데 회전대 위 3D 상품(가방·스니커즈·모자 중 선택, 기본 도형 조합)\n2. 가짜 시청자 채팅이 몇 초마다 올라오는 시뮬레이션(예시 문장 30개), 내 채팅 입력\n3. 타임세일 카운트다운, 할인가 자동 계산, '구매' 버튼 누르면 구매 알림과 남은 수량 감소\n4. 진행자 대본(오프닝·상품 소개·마무리) 메모 패널\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 회전대가 천천히 돌고, 상품 클릭 시 확대(줌) 연출\n- 방송 조명처럼 링라이트 반사 하이라이트\n\n[화면 디자인]\n- 분위기: 라이브 방송 앱 무드(다크 UI, 레드 LIVE 배지)\n- 맨 위에 '라이브커머스 3D 상품 쇼케이스' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "상품을 3개로 늘리고 순서대로 소개하는 큐 기능을 추가해줘",
+    "하트 버튼을 누르면 하트가 떠오르는 효과를 추가해줘"
+   ]
+  },
+  {
+   "n": 342,
+   "title": "SNS 3D 피드 미리보기",
+   "cat": "c30",
+   "sub": "⑦ 브랜드·라이브커머스·창업 3D",
+   "lv": 1,
+   "type": "웹앱",
+   "eng": "css",
+   "what": "3D 스마트폰 목업 안에서 내 패션 계정 피드와 게시물을 미리 보는 SNS 마케팅 기획 도구(실제 SNS 로고 없이 오리지널 UI)",
+   "link": "선택교과: SNS 마케팅 / 진로: 패션 인플루언서",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 'SNS 3D 피드 미리보기' 3D 웹앱을 만들어줘.\n\n[만들 것]\n3D 스마트폰 목업 안에서 내 패션 계정 피드와 게시물을 미리 보는 SNS 마케팅 기획 도구(실제 SNS 로고 없이 오리지널 UI)\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n선택교과: SNS 마케팅 / 진로: 패션 인플루언서\n\n[핵심 기능]\n1. 두께와 모서리가 있는 3D 스마트폰 목업, 드래그로 기울여 보기\n2. 프로필(닉네임·소개), 게시물 9칸 그리드(색·문구·이모지로 만드는 카드)\n3. 게시물 클릭 시 상세(캡션·해시태그·좋아요), 해시태그 추천 버튼\n4. 피드 톤 통일 점수(색 조화 계산)\n\n[3D 연출 - 입체감이 가장 중요해]\n- 3D 무대는 perspective(1000~1400px)를 준 부모 안에 transform-style: preserve-3d로 만들고, 입체 물체는 div 여러 개를 rotateX/rotateY/translateZ로 조립할 것\n- 면마다 빛을 받는 방향에 따라 밝기를 다르게(linear-gradient 겹치기) 해서 진짜 입체처럼 보이게 하고, 바닥에는 흐린 타원 그림자\n- 마우스 드래그·손가락 스와이프로 회전, 손을 떼면 부드럽게 감속(관성), '시점 초기화' 버튼\n- 처음 열었을 때 입체 물체가 화면 가운데에 크게 보이게 할 것\n- 폰 화면 위 유리 반사 하이라이트\n- 폰이 공중에 떠 있는 그림자와 은은한 흔들림\n\n[화면 디자인]\n- 분위기: 크리에이터 스튜디오 무드(그라데이션 퍼플·핑크)\n- 맨 위에 'SNS 3D 피드 미리보기' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 외부 라이브러리 없이 CSS 3D transform과 JavaScript만으로 구현\n- 드래그·스와이프는 마우스와 스마트폰 터치에서 모두 되도록 Pointer Events(pointerdown/move/up)를 사용하고, 해당 영역에 CSS touch-action: none 적용\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "게시물 업로드 일정 캘린더를 추가해줘",
+    "릴스 커버 미리보기 모드를 추가해줘"
+   ]
+  },
+  {
+   "n": 343,
+   "title": "창업 아이템 3D 큐브 피치덱",
+   "cat": "c30",
+   "sub": "⑦ 브랜드·라이브커머스·창업 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "css",
+   "what": "슬라이드가 3D 큐브 면처럼 회전하며 넘어가는 패션·뷰티 창업 아이템 발표 자료 만들기 앱",
+   "link": "선택교과: 창업 아이템 개발, 브랜드 마케팅",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '창업 아이템 3D 큐브 피치덱' 3D 웹앱을 만들어줘.\n\n[만들 것]\n슬라이드가 3D 큐브 면처럼 회전하며 넘어가는 패션·뷰티 창업 아이템 발표 자료 만들기 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n선택교과: 창업 아이템 개발, 브랜드 마케팅\n\n[핵심 기능]\n1. 슬라이드 6장(문제·해결·제품·타깃·수익 구조·한 줄 비전) 템플릿에 내용 입력\n2. 다음/이전 버튼·방향키·스와이프로 큐브 회전 전환\n3. 발표 모드(전체 화면, 타이머)와 편집 모드\n4. 예시 피치덱 2개(업사이클 가방 브랜드, 반려동물 의류 구독) 불러오기\n\n[3D 연출 - 입체감이 가장 중요해]\n- 3D 무대는 perspective(1000~1400px)를 준 부모 안에 transform-style: preserve-3d로 만들고, 입체 물체는 div 여러 개를 rotateX/rotateY/translateZ로 조립할 것\n- 면마다 빛을 받는 방향에 따라 밝기를 다르게(linear-gradient 겹치기) 해서 진짜 입체처럼 보이게 하고, 바닥에는 흐린 타원 그림자\n- 마우스 드래그·손가락 스와이프로 회전, 손을 떼면 부드럽게 감속(관성), '시점 초기화' 버튼\n- 처음 열었을 때 입체 물체가 화면 가운데에 크게 보이게 할 것\n- 큐브 회전 중 면이 원근감 있게 보이고 옆면 그림자\n- 제품 슬라이드에 CSS로 만든 입체 상품 박스\n\n[화면 디자인]\n- 분위기: 스타트업 데모데이 무드(딥 네이비, 일렉트릭 블루)\n- 맨 위에 '창업 아이템 3D 큐브 피치덱' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 외부 라이브러리 없이 CSS 3D transform과 JavaScript만으로 구현\n- 드래그·스와이프는 마우스와 스마트폰 터치에서 모두 되도록 Pointer Events(pointerdown/move/up)를 사용하고, 해당 영역에 CSS touch-action: none 적용\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "수익 계산(가격×판매량-원가) 자동 그래프 슬라이드를 추가해줘",
+    "발표 대본 노트를 슬라이드별로 추가해줘"
+   ]
+  },
+  {
+   "n": 344,
+   "title": "식공간 연출 3D 테이블 세팅",
+   "cat": "c30",
+   "sub": "⑦ 브랜드·라이브커머스·창업 3D",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "3D 테이블 위에 접시·컵·커트러리·꽃·냅킨을 배치해 테마별 식공간을 연출하는 스타일링 앱",
+   "link": "선택교과: 식공간 연출 / 교과: 패션스타일리스트 실무",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '식공간 연출 3D 테이블 세팅' 3D 웹앱을 만들어줘.\n\n[만들 것]\n3D 테이블 위에 접시·컵·커트러리·꽃·냅킨을 배치해 테마별 식공간을 연출하는 스타일링 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n선택교과: 식공간 연출 / 교과: 패션스타일리스트 실무\n\n[핵심 기능]\n1. 원형·사각 테이블 선택, 테이블보 색과 무늬\n2. 접시(LatheGeometry)·컵·포크·나이프·꽃병·초·냅킨 추가와 드래그 배치\n3. 테마 프리셋(브런치·크리스마스·한식 상차림·가든 파티) 자동 배치\n4. 컬러 조화 팁과 세팅 원칙(좌우 대칭, 높이 리듬) 안내\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 도자기는 광택, 유리컵은 반투명, 초에는 따뜻한 포인트 라이트\n- 위에서 내려다보는 시점과 앉은 눈높이 시점 전환\n\n[화면 디자인]\n- 분위기: 라이프스타일 매거진 무드(리넨 베이지, 올리브 그린)\n- 맨 위에 '식공간 연출 3D 테이블 세팅' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "의자와 손님 자리 카드(네임카드)를 추가해줘",
+    "완성 세팅을 PNG로 저장해줘"
+   ]
+  },
+  {
+   "n": 345,
+   "title": "3D 마네킹 코디 챌린지",
+   "cat": "c30",
+   "sub": "⑧ 3D 패션 게임·진로·AI",
+   "lv": 2,
+   "type": "게임",
+   "eng": "three",
+   "what": "제시된 테마에 맞게 3D 마네킹에 상의·하의·아우터·신발을 입혀 점수를 받는 스타일링 게임",
+   "link": "교과: 패션스타일리스트 실무 / 자격증: 패션스타일리스트",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 마네킹 코디 챌린지' 3D 웹 게임을 만들어줘.\n\n[만들 것]\n제시된 테마에 맞게 3D 마네킹에 상의·하의·아우터·신발을 입혀 점수를 받는 스타일링 게임\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션스타일리스트 실무 / 자격증: 패션스타일리스트\n\n[핵심 기능]\n1. 마네킹(얼굴 없는 기본 도형)과 아이템 각 4종씩을 도형 조합으로 제작, 클릭하면 입혀짐\n2. 라운드마다 테마 카드(면접·캠퍼스·여름휴가·겨울 데이트·파티), 60초 제한\n3. 아이템마다 태그(포멀·캐주얼·계절·컬러)가 있어 테마 일치도와 색 조화로 점수 계산\n4. 시작 화면 → 게임 화면(점수·남은 시간) → 결과 화면(총점, 스타일리스트 등급, 다시하기)\n5. 키보드와 마우스, 스마트폰 터치를 모두 지원\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 옷이 입혀질 때 위에서 내려와 맞춰지는 애니메이션과 반짝임\n- 결과 화면에서 마네킹이 회전대 위에서 돌며 포즈\n\n[화면 디자인]\n- 분위기: 스타일링 쇼 프로그램 무드(블랙·핫핑크 네온)\n- 맨 위에 '3D 마네킹 코디 챌린지' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "2인 대결 모드를 추가해줘",
+    "액세서리(가방·모자) 슬롯을 추가해줘"
+   ]
+  },
+  {
+   "n": 346,
+   "title": "3D 원단 러너 게임",
+   "cat": "c30",
+   "sub": "⑧ 3D 패션 게임·진로·AI",
+   "lv": 3,
+   "type": "게임",
+   "eng": "three",
+   "what": "3개 레인을 달리며 미션 소재 원단 롤만 모으고 다른 소재는 피하는 3D 러너 게임",
+   "link": "교과: 패션 디자인의 기초(소재), 게임 디자인",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 원단 러너 게임' 3D 웹 게임을 만들어줘.\n\n[만들 것]\n3개 레인을 달리며 미션 소재 원단 롤만 모으고 다른 소재는 피하는 3D 러너 게임\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n교과: 패션 디자인의 기초(소재), 게임 디자인\n\n[핵심 기능]\n1. 앞으로 끝없이 이어지는 바닥, 캐릭터(오리지널 재봉 로봇, 기본 도형)\n2. 왼쪽·오른쪽 이동(방향키·화면 버튼·스와이프), 점프\n3. 미션 카드: '여름 소재 모으기' → 린넨·시어서커는 +점, 울·코듀로이는 -생명\n4. 속도가 점점 빨라짐, 생명 3개, 시작·게임·결과 화면, 최고 기록 localStorage\n5. 시작 화면(게임 제목, 방법 안내, 시작 버튼) → 게임 화면(점수·남은 시간 또는 생명 표시) → 결과 화면(최종 점수, 다시하기 버튼) 흐름\n6. 키보드와 마우스, 스마트폰 터치를 모두 지원\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 원단 롤은 원기둥에 소재 무늬 CanvasTexture, 회전하며 다가옴\n- 안개(scene.fog)로 멀리 있는 물체가 흐려지는 깊이감\n\n[화면 디자인]\n- 분위기: 아케이드 무드(네온 퍼플·시안 그리드)\n- 맨 위에 '3D 원단 러너 게임' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "겨울 소재 미션과 미션 랜덤 변경을 추가해줘",
+    "아이템(자석·쉴드)을 추가해줘"
+   ]
+  },
+  {
+   "n": 347,
+   "title": "세계 전통의상 3D 지구본",
+   "cat": "c30",
+   "sub": "⑧ 3D 패션 게임·진로·AI",
+   "lv": 3,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "돌아가는 3D 지구본에서 나라 핀을 누르면 전통의상의 특징을 한국어·영어로 알려주는 학습 앱",
+   "link": "선택교과: 세계 문화와 영어 / 교과: 패션 디자인의 실제",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '세계 전통의상 3D 지구본' 3D 웹앱을 만들어줘.\n\n[만들 것]\n돌아가는 3D 지구본에서 나라 핀을 누르면 전통의상의 특징을 한국어·영어로 알려주는 학습 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n선택교과: 세계 문화와 영어 / 교과: 패션 디자인의 실제\n\n[핵심 기능]\n1. 구(SphereGeometry)에 Canvas로 그린 단순한 대륙 모양 텍스처, 바다는 그라데이션\n2. 나라 핀 12개(한국·일본·중국·인도·베트남·스코틀랜드·멕시코·가나·사우디아라비아·노르웨이·페루·몽골) 위도·경도 위치\n3. 핀 클릭 시 지구본이 그 나라로 회전하고, 전통의상 이름·특징·소재·영어 표현 카드\n4. 영어 단어 퀴즈 5문제(전통의상 영어 설명 보고 나라 고르기)\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 지구 주변 대기(살짝 큰 반투명 구)와 별 배경 입자\n- 핀은 빛나는 막대와 구, 선택하면 커지며 맥박처럼 빛남\n\n[화면 디자인]\n- 분위기: 우주 탐험 무드(딥 네이비, 시안 하이라이트)\n- 맨 위에 '세계 전통의상 3D 지구본' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "나라 핀을 사용자가 추가하는 기능을 넣어줘",
+    "전통의상 소재로 만든 현대 패션 아이디어 카드를 추가해줘"
+   ]
+  },
+  {
+   "n": 348,
+   "title": "3D 패션·뷰티 진로 로드맵",
+   "cat": "c30",
+   "sub": "⑧ 3D 패션 게임·진로·AI",
+   "lv": 2,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "떠 있는 3D 섬 계단을 오르며 학년별 교과·자격증·진학·취업 진로를 탐색하는 진로 로드맵",
+   "link": "자격증: ITQ·GTQ·패션스타일리스트·VMD전문가·세탁기능사·미용사·숍 마스터 / 진로: 진학·취업",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 '3D 패션·뷰티 진로 로드맵' 3D 웹앱을 만들어줘.\n\n[만들 것]\n떠 있는 3D 섬 계단을 오르며 학년별 교과·자격증·진학·취업 진로를 탐색하는 진로 로드맵\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n자격증: ITQ·GTQ·패션스타일리스트·VMD전문가·세탁기능사·미용사·숍 마스터 / 진로: 진학·취업\n\n[핵심 기능]\n1. 1학년·2학년·3학년·졸업 후 4개 섬이 계단처럼 위로 이어진 3D 장면\n2. 섬마다 깃발: 주요 교과, 취득 가능 자격증, 추천 활동\n3. 졸업 후 섬에서 진로 두 갈래(패션 스타일리스트 / 뷰티 스타일리스트) 선택 시 진학 학과와 취업 분야 표시\n4. 내 목표 자격증 체크와 진행률 표시(localStorage)\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 섬은 떠 있는 바위(위는 잔디, 아래는 뾰족한 원뿔), 천천히 위아래로 둥둥\n- 섬 클릭 시 카메라가 그 섬으로 부드럽게 날아감\n\n[화면 디자인]\n- 분위기: 판타지 게임 월드맵 무드(파스텔 하늘, 구름 입자)\n- 맨 위에 '3D 패션·뷰티 진로 로드맵' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "내 꿈 직업을 입력하면 마지막 섬에 깃발로 세워줘",
+    "자격증 시험 D-day 카운터를 추가해줘"
+   ]
+  },
+  {
+   "n": 349,
+   "title": "AI 스타일 추천 3D 옷장",
+   "cat": "c30",
+   "sub": "⑧ 3D 패션 게임·진로·AI",
+   "lv": 3,
+   "type": "웹앱",
+   "eng": "three",
+   "what": "질문 5개에 답하면 3D 옷장 문이 열리며 규칙 기반 추천 알고리즘이 고른 옷이 앞으로 나오는 스타일 추천 앱",
+   "link": "선택교과: 인공지능일반 / 교과: 패션스타일리스트 실무",
+   "prompt": "너는 고등학생과 함께 작업하는 친절한 3D 웹 개발자야. 아래 요구사항대로 'AI 스타일 추천 3D 옷장' 3D 웹앱을 만들어줘.\n\n[만들 것]\n질문 5개에 답하면 3D 옷장 문이 열리며 규칙 기반 추천 알고리즘이 고른 옷이 앞으로 나오는 스타일 추천 앱\n\n[사용 대상]\n패션·뷰티 크리에이터를 꿈꾸는 패션스타일과 고등학생\n\n[전공 연계]\n선택교과: 인공지능일반 / 교과: 패션스타일리스트 실무\n\n[핵심 기능]\n1. 문 두 짝이 열리는 3D 옷장, 안에 행거와 옷 12벌(기본 도형, 각 옷에 태그 데이터)\n2. 질문 5개(오늘 일정·날씨·원하는 분위기·좋아하는 색·편안함 정도)\n3. 답변과 옷 태그를 점수로 계산해 상위 3벌 추천, 추천 옷이 옷장 밖으로 떠오름\n4. 'AI가 왜 골랐을까?' 패널: 항목별 점수 표로 추천 이유 설명(인공지능의 규칙 기반 추천 원리 학습)\n\n[3D 연출 - 입체감이 가장 중요해]\n- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치\n- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것\n- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자\n- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게(면·니트=거칠게, 실크·에나멜=매끈하게, 금속=metalness 높게)\n- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)\n- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼\n- 색·옵션을 바꾸면 0.3초 정도 부드럽게 변하는 애니메이션\n- 옷장 안쪽에 따뜻한 조명, 문이 열릴 때 빛이 퍼지는 연출\n- 추천된 옷은 회전하며 빛나는 테두리\n\n[화면 디자인]\n- 분위기: 스마트 드레스룸 무드(월넛 우드, 웜 라이트)\n- 맨 위에 'AI 스타일 추천 3D 옷장' 제목과 한 줄 사용법 안내\n- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과\n- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃\n\n[기술 조건 - 꼭 지켜줘]\n- HTML, CSS, JavaScript를 하나의 HTML 파일에 모두 넣어 완성하고, 코드를 생략하지 말고 끝까지 작성\n- 외부 이미지 파일, 3D 모델 파일(GLTF·OBJ 등), 인터넷 서버와 통신하는 외부 API, API 키, 로그인 기능은 사용하지 말 것(Web Audio처럼 브라우저에 내장된 기능은 사용 가능)\n- 실제 브랜드 로고·상표, 유명 캐릭터, 연예인 사진은 사용하지 말고 모두 오리지널로 만들 것\n- 예시 데이터를 미리 넣어서 화면을 열자마자 바로 동작하게 할 것\n- 입력이 비었거나 잘못되면 알림창(alert) 대신 화면 안에 친절한 안내 문구 표시\n- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리는 쓰지 말 것\n- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events(pointerdown/move/up)와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용\n- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것\n- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라 aspect와 렌더러 크기를 다시 맞출 것\n- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시\n- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것\n- 사용자가 '동작 줄이기(prefers-reduced-motion)'를 켜 두었으면 자동 회전·반복 애니메이션을 줄일 것\n\n[완성 전 스스로 점검]\n코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.",
+   "missions": [
+    "사용자가 옷을 추가하고 태그를 다는 기능을 넣어줘",
+    "점수 가중치를 슬라이더로 바꿔 추천이 어떻게 달라지는지 보여줘"
+   ]
   }
  ],
  "bugfix": [
@@ -4272,6 +4953,22 @@ window.VC_DATA = {
   {
    "title": "저장한 내용이 사라질 때",
    "prompt": "새로고침하면 입력한 내용이 사라져. localStorage에 자동 저장되도록 고쳐주고, 저장이 안 되는 환경에서도 오류 없이 동작하게 해줘."
+  },
+  {
+   "title": "3D 화면이 검게 나오거나 물체가 안 보일 때",
+   "prompt": "3D 화면이 검게 나오거나 물체가 보이지 않아. 카메라 위치와 바라보는 방향(lookAt), 조명 밝기, 물체 크기와 위치, 렌더러 크기가 0이 아닌지 점검해서 처음 열었을 때 물체가 화면 가운데에 크게 보이도록 고치고 전체 코드를 다시 보여줘."
+  },
+  {
+   "title": "3D 모델이 너무 단순하거나 납작해 보일 때",
+   "prompt": "3D 모델이 너무 단순하고 납작해 보여. 기본 도형을 더 많이 조합해서 디테일(테두리, 이음새, 두께, 곡선)을 살리고, 그림자가 생기는 조명과 소재별 광택 차이를 넣어서 고급스러운 입체감이 나게 고쳐줘. 기능은 그대로 유지해줘."
+  },
+  {
+   "title": "스마트폰에서 3D가 느리거나 돌아가지 않을 때",
+   "prompt": "스마트폰에서 3D가 느리고 손가락으로 돌려지지 않아. 3D 영역에 touch-action: none을 적용하고 Pointer Events로 회전과 두 손가락 확대를 고쳐줘. 화면이 작으면 setPixelRatio를 낮추고 그림자 품질과 물체 개수를 줄여서 부드럽게 움직이게 해줘."
+  },
+  {
+   "title": "3D 엔진(Three.js)을 불러오지 못할 때",
+   "prompt": "3D 엔진을 불러오지 못했다는 안내가 나와. Three.js r128을 https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js 주소 하나로만 불러오도록 고쳐주고, 그래도 안 되면 같은 기능을 외부 라이브러리 없이 CSS 3D transform으로 다시 만들어줘."
   }
  ]
 };

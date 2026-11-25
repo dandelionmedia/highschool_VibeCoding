@@ -53,13 +53,16 @@
   function catLabel(t) {
     var c = CAT[t.cat];
     if (!c) return "";
-    return t.sub ? "패션 " + t.sub.replace(/^[①-⑨]\s*/, "") : c.name;
+    if (!t.sub) return c.name;
+    var sub = t.sub.replace(/^[①-⑨]\s*/, "");
+    return c.group === "style3d" ? sub : "패션 " + sub;
   }
   function tagsHTML(t) {
     return (
       '<span class="tag">' + esc(catLabel(t)) + "</span>" +
       '<span class="tag tag--lv' + t.lv + '">' + LV_NAME[t.lv] + (LV_TIME[t.lv] ? " · " + LV_TIME[t.lv] : "") + "</span>" +
-      '<span class="tag' + (t.type === "게임" ? " tag--game" : "") + '">' + (t.type === "게임" ? "🎮 게임" : "🧩 웹앱") + "</span>"
+      '<span class="tag' + (t.type === "게임" ? " tag--game" : "") + '">' + (t.type === "게임" ? "🎮 게임" : "🧩 웹앱") + "</span>" +
+      (t.eng ? '<span class="tag tag--3d">🧊 ' + (t.eng === "three" ? "Three.js 3D" : "CSS 3D") + "</span>" : "")
     );
   }
 
@@ -156,6 +159,7 @@
   var state = { group: "all", sub: "", lv: 0, type: "", q: "" };
   var GROUPS = [
     { id: "all", emoji: "🌐", name: "전체 미션" },
+    { id: "style3d", emoji: "🧊", name: "패션스타일과 3D", badge: "NEW 3D" },
     { id: "fashion", emoji: "⭐", name: "패션디자인 전공", badge: "전공 특화" },
     { id: "school", emoji: "🏫", name: "학교생활·일상" },
     { id: "hobby", emoji: "🎧", name: "취미·관심사" },
@@ -180,16 +184,26 @@
     }).join("");
     mount.addEventListener("click", function (e) {
       var b = e.target.closest(".group");
-      if (!b) return;
-      state.group = b.getAttribute("data-group");
-      state.sub = "";
-      $$(".group", mount).forEach(function (x) {
-        var on = x === b;
-        x.classList.toggle("is-on", on);
-        x.setAttribute("aria-selected", on ? "true" : "false");
-      });
-      renderSubs();
-      applyFilter();
+      if (b) selectGroup(b.getAttribute("data-group"));
+    });
+  }
+  function selectGroup(id) {
+    state.group = id;
+    state.sub = "";
+    $$("#groupTabs .group").forEach(function (x) {
+      var on = x.getAttribute("data-group") === id;
+      x.classList.toggle("is-on", on);
+      x.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    renderSubs();
+    applyFilter();
+  }
+  function initGoto() {
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("[data-goto-group]");
+      if (!a) return;
+      selectGroup(a.getAttribute("data-goto-group"));
+      Sound.select();
     });
   }
 
@@ -197,8 +211,8 @@
     var mount = document.getElementById("subChips");
     if (!mount) return;
     var items = [];
-    if (state.group === "fashion") {
-      var fc = CATS.filter(function (c) { return c.group === "fashion"; })[0];
+    if (state.group === "fashion" || state.group === "style3d") {
+      var fc = CATS.filter(function (c) { return c.group === state.group; })[0];
       if (fc) items = fc.subs.map(function (s) {
         return { key: "s:" + s.name, emoji: s.emoji, name: s.name.replace(/^[①-⑨]\s*/, ""), n: TOPICS.filter(function (t) { return t.sub === s.name; }).length };
       });
@@ -231,7 +245,7 @@
     if (!mount) return;
     mount.innerHTML = TOPICS.map(function (t, i) {
       return (
-        '<article class="card" id="m' + t.n + '" data-i="' + i + '">' +
+        '<article class="card' + (t.eng ? " card--3d" : "") + '" id="m' + t.n + '" data-i="' + i + '">' +
           '<div class="card__top"><span class="card__no">No.' + pad3(t.n) + '</span><span class="card__clear">CLEAR</span><span class="card__emo" aria-hidden="true">' + topicEmoji(t) + "</span></div>" +
           '<h3 class="card__title"><button type="button" class="card__open" data-open="' + i + '">' + esc(t.title) + "</button></h3>" +
           (t.what ? '<p class="card__what">' + esc(t.what) + "</p>" : "") +
@@ -257,11 +271,12 @@
       if (state.sub.indexOf("c:") === 0 && t.cat !== state.sub.slice(2)) return false;
     }
     if (state.lv && t.lv !== state.lv) return false;
-    if (state.type && t.type !== state.type) return false;
+    if (state.type === "3D") { if (!t.eng) return false; }
+    else if (state.type && t.type !== state.type) return false;
     if (state.q) {
       var q = state.q;
       if (/^\d+$/.test(q)) return String(t.n) === q || t.title.indexOf(q) > -1;
-      var hay = (t.title + " " + t.what + " " + catLabel(t) + " " + (CAT[t.cat] ? CAT[t.cat].name : "") + " " + t.type + " " + t.missions.join(" ")).toLowerCase();
+      var hay = (t.title + " " + t.what + " " + (t.link || "") + " " + (t.eng ? "3d 입체" : "") + " " + catLabel(t) + " " + (CAT[t.cat] ? CAT[t.cat].name : "") + " " + t.type + " " + t.missions.join(" ")).toLowerCase();
       var words = q.toLowerCase().split(/\s+/).filter(Boolean);
       for (var i = 0; i < words.length; i++) if (hay.indexOf(words[i]) < 0) return false;
     }
@@ -345,6 +360,8 @@
     setText("modalTitle", t.title);
     setText("modalIcon", topicEmoji(t));
     setText("modalWhat", t.what ? "🎯 " + t.what : "");
+    var lk = document.getElementById("modalLink");
+    if (lk) { lk.hidden = !t.link; lk.innerHTML = t.link ? "<b>🎓 전공 연계</b> " + esc(t.link) : ""; }
     setText("modalFile", "mission_" + pad3(t.n) + ".txt");
     $("#modalTags").innerHTML = tagsHTML(t);
     $("#modalPrompt").innerHTML = highlight(t.prompt);
@@ -419,10 +436,12 @@
     if (!mount) return;
     mount.innerHTML = BUGFIX.map(function (b, i) {
       var id = "bug-" + (i + 1);
+      var no = ("0" + (i + 1)).slice(-2);
+      var is3d = /3D/.test(b.title);
       return (
-        '<article class="bug reveal">' +
-          '<div class="bug__head"><span class="bug__no">0' + (i + 1) + "</span><h3>" + esc(b.title) + "</h3></div>" +
-          '<div class="term"><div class="term__bar"><i></i><i></i><i></i><span>bugfix_0' + (i + 1) + '.txt</span></div>' +
+        '<article class="bug reveal' + (is3d ? " bug--3d" : "") + '">' +
+          '<div class="bug__head"><span class="bug__no">' + no + "</span><h3>" + esc(b.title) + "</h3>" + (is3d ? '<span class="tag tag--3d">🧊 3D</span>' : "") + "</div>" +
+          '<div class="term"><div class="term__bar"><i></i><i></i><i></i><span>bugfix_' + no + '.txt</span></div>' +
           '<pre class="term__body" id="' + id + '" tabindex="0">' + highlightBug(b.prompt) + "</pre></div>" +
           '<div class="copy-row"><button type="button" class="copy-btn" data-copy="' + id + '" data-key="b' + (i + 1) + '">' +
           '<span class="copy-btn__ico" aria-hidden="true">▶</span><span class="copy-btn__lbl">프롬프트 한번에 복사</span></button></div>' +
@@ -663,6 +682,13 @@
       mood: "어두운 판타지 배경에 금색 테두리, 고급스러운 RPG 대화창"
     }
   ];
+  IDEAS.push({
+    name: "3D 우리 반 패션쇼 무대", type: "웹앱", is3d: true,
+    what: "우리 반 친구들이 디자인한 룩 5벌을 3D 런웨이에 세워 돌려 보며 소개하는 패션쇼 무대",
+    who: "졸업 작품 패션쇼를 준비하는 패션스타일과 고등학생",
+    feat: "런웨이 위에 마네킹 5개를 세우고 룩마다 상의·하의 색과 형태를 고르기\n마네킹을 클릭하면 카메라가 다가가며 룩 이름과 디자이너 별명, 콘셉트 카드 표시\n'쇼 시작' 버튼으로 조명이 차례로 켜지며 한 명씩 앞으로 걸어 나오는 연출\n관객 투표 버튼과 인기 룩 1위 발표",
+    mood: "블랙 무대와 화이트 런웨이 조명, 하이패션 쇼장"
+  });
   var BLANK = {
     name: "[여기에 앱 또는 게임 이름]",
     what: "[여기에 무엇을 만들지 한 문장으로]",
@@ -681,6 +707,24 @@
     "- 저장 기능이 필요하면 localStorage를 쓰되 try-catch로 감싸서, 저장이 안 되는 환경에서도 앱은 정상 동작하게 할 것"
   ].join("\n");
 
+  var THREE_BLOCK = [
+    "[3D 연출 - 입체감이 가장 중요해]",
+    "- 화면의 가장 큰 영역(노트북 높이 70vh, 스마트폰 60vh 이상)을 3D 무대로 쓰고, 조작 패널은 오른쪽(스마트폰은 3D 화면 아래)에 배치",
+    "- 처음 열었을 때 주인공 물체가 화면 가운데에 크게 보이도록 카메라 위치를 맞추고, 바닥(그림자를 받는 면)과 은은한 배경 그라데이션을 깔 것",
+    "- 조명: HemisphereLight(환경광) + 그림자를 만드는 DirectionalLight + 포인트 또는 스포트 조명 1개로 입체감, renderer.shadowMap.enabled = true(PCFSoftShadowMap)로 바닥에 부드러운 그림자",
+    "- 재질: MeshStandardMaterial 또는 MeshPhysicalMaterial을 쓰고 소재에 맞게 roughness·metalness를 다르게",
+    "- 모양은 BoxGeometry, SphereGeometry, CylinderGeometry, ConeGeometry, TorusGeometry, LatheGeometry, TubeGeometry, ExtrudeGeometry를 여러 개 조합해 THREE.Group으로 묶어 디테일 있게 만들 것(CapsuleGeometry는 r128에 없으니 사용 금지)",
+    "- 마우스 드래그·손가락 스와이프로 360도 회전, 마우스 휠·두 손가락으로 확대·축소, 손을 떼면 부드럽게 감속(관성), '자동 회전' 켜기/끄기와 '시점 초기화' 버튼"
+  ].join("\n");
+  var THREE_TECH = [
+    "- 3D는 Three.js r128 한 가지만 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>로 불러와 사용하고, 다른 외부 라이브러리와 3D 모델 파일은 쓰지 말 것",
+    "- OrbitControls는 r128 기본 파일에 들어 있지 않으므로 회전·확대·축소는 Pointer Events와 wheel 이벤트로 직접 구현하고, 3D 영역에 CSS touch-action: none 적용",
+    "- 무늬·글자·로고는 Canvas 2D로 그린 뒤 THREE.CanvasTexture로 입힐 것",
+    "- WebGLRenderer는 antialias: true, setPixelRatio(Math.min(window.devicePixelRatio, 2)), outputEncoding = THREE.sRGBEncoding, toneMapping = THREE.ACESFilmicToneMapping으로 설정하고, 창 크기가 바뀌면 카메라와 렌더러 크기를 다시 맞출 것",
+    "- Three.js를 불러오지 못하면 화면에 '3D 엔진을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요' 안내를 표시"
+  ].join("\n");
+  var CHECK_3D = "코드를 보여주기 전에 ① 처음 열었을 때 3D 물체가 검은 화면이나 빈 화면 없이 가운데에 크게 보이는지(카메라 위치·조명 확인) ② 회전·확대와 모든 버튼이 마우스와 스마트폰 터치에서 동작하는지 ③ 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘.";
+
   function buildPrompt(v) {
     var pick = function (val, k) { val = (val || "").trim(); return val ? val : BLANK[k]; };
     var isGame = v.type === "게임";
@@ -691,8 +735,10 @@
       feats.push("시작 화면(게임 제목, 방법 안내, 시작 버튼) → 게임 화면(점수·남은 시간 또는 생명 표시) → 결과 화면(최종 점수, 다시하기 버튼) 흐름");
       feats.push("키보드와 마우스, 스마트폰 터치를 모두 지원");
     }
+    var is3d = !!v.is3d;
+    var role = is3d ? ROLE.replace("웹 개발자", "3D 웹 개발자") : ROLE;
     return [
-      ROLE + " 아래 요구사항대로 '" + name + "' " + (isGame ? "웹 게임" : "웹앱") + "을 만들어줘.",
+      role + " 아래 요구사항대로 '" + name + "' " + (is3d ? "3D " : "") + (isGame ? "웹 게임" : "웹앱") + "을 만들어줘.",
       "",
       "[만들 것]", pick(v.what, "what"),
       "",
@@ -700,17 +746,18 @@
       "",
       "[핵심 기능]", feats.map(function (f, i) { return (i + 1) + ". " + f; }).join("\n"),
       "",
+      is3d ? THREE_BLOCK + "\n" : null,
       "[화면 디자인]",
       "- 분위기: " + pick(v.mood, "mood"),
       "- 맨 위에 '" + name + "' 제목과 한 줄 사용법 안내",
       "- 모든 글자와 버튼은 한국어, 버튼은 크고 누르기 쉽게, 누르면 색이 바뀌는 반응 효과",
       "- 스마트폰(가로 360px)부터 노트북까지 깨지지 않는 반응형 레이아웃",
       "",
-      TECH,
+      is3d ? TECH.replace("(Web Audio", "(3D 모델 파일 포함, Web Audio") + "\n" + THREE_TECH : TECH,
       "",
       "[완성 전 스스로 점검]",
-      "코드를 보여주기 전에 모든 버튼과 기능이 실제로 동작하는지, 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘."
-    ].join("\n");
+      is3d ? CHECK_3D : "코드를 보여주기 전에 모든 버튼과 기능이 실제로 동작하는지, 콘솔 오류가 없는지 점검하고, 마지막에 사용 방법을 3줄로 요약해줘."
+    ].filter(function (x) { return x !== null; }).join("\n");
   }
 
   function initBuilder() {
@@ -724,22 +771,26 @@
       mood: document.getElementById("fMood")
     };
     var radios = $$('input[name="fType"]');
+    var chk3d = document.getElementById("f3d");
     var btn = $('.copy-btn[data-copy="builderPrompt"]');
     function typeVal() { var r = radios.filter(function (x) { return x.checked; })[0]; return r ? r.value : "웹앱"; }
     function render() {
       out.innerHTML = highlight(buildPrompt({
-        name: f.name.value, what: f.what.value, who: f.who.value, feat: f.feat.value, mood: f.mood.value, type: typeVal()
+        name: f.name.value, what: f.what.value, who: f.who.value, feat: f.feat.value, mood: f.mood.value, type: typeVal(),
+        is3d: chk3d && chk3d.checked
       }));
       if (btn) setCopied(btn, false);
     }
     Object.keys(f).forEach(function (k) { f[k].addEventListener("input", render); });
     radios.forEach(function (r) { r.addEventListener("change", function () { Sound.select(); render(); }); });
+    if (chk3d) chk3d.addEventListener("change", function () { chk3d.checked ? Sound.open() : Sound.click(); render(); });
     $$("[data-idea]").forEach(function (chip) {
       chip.addEventListener("click", function () {
         var idea = IDEAS[+chip.getAttribute("data-idea")];
         if (!idea) return;
         Object.keys(f).forEach(function (k) { f[k].value = idea[k] || ""; });
         radios.forEach(function (r) { r.checked = r.value === idea.type; });
+        if (chk3d) chk3d.checked = !!idea.is3d;
         render();
         toast("💡 예시를 불러왔어요! 내 아이디어로 고쳐 보세요");
       });
@@ -748,6 +799,7 @@
     if (reset) reset.addEventListener("click", function () {
       Object.keys(f).forEach(function (k) { f[k].value = ""; });
       radios.forEach(function (r) { r.checked = r.value === "웹앱"; });
+      if (chk3d) chk3d.checked = false;
       render();
       f.name.focus();
     });
@@ -775,7 +827,7 @@
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) setActive(en.target.id === "home" ? "" : en.target.id); });
     }, { rootMargin: "-40% 0px -55% 0px" });
-    ["home", "howto", "blueprint", "missions", "bugfix", "builder"].forEach(function (id) {
+    ["home", "studio3d", "howto", "blueprint", "missions", "bugfix", "builder"].forEach(function (id) {
       var s = document.getElementById(id);
       if (s) io.observe(s);
     });
@@ -822,6 +874,7 @@
     applyFilter();
     initToolbar();
     initModal();
+    initGoto();
     renderBugs();
     initSound();
     initCopy();
